@@ -11,7 +11,72 @@ import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Rating} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
+const garage = [
+  {
+    id: 1,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 2,
+    name: 'JP Long',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 3,
+    name: 'AT Auto',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 4,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 5,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 6,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 7,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 8,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 9,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+  {
+    id: 10,
+    name: 'Shinwa Pro Garage',
+    ratting: 4.5,
+    comments: 10,
+  },
+]
+
 const SearchGarage = () => {
+  const navigation = useNavigation();
   const [isGarage, setIsGarage] = useState(true);
   const [indexCarChoice, setIndexCarChoice] = useState(-1);
   return (
@@ -69,13 +134,14 @@ const SearchGarage = () => {
         <Icon name={'chevron-forward-outline'} size={34} color={'red'} />
       </View>
       <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+        data={garage}
         renderItem={({item}) => (
-          <View style={styles.itemGarage}>
-            <Text style={styles.nameGarage}>Shinwa Pro Garage</Text>
+          <TouchableOpacity style={styles.itemGarage}
+            onPress={() =>navigation.navigate('DetailGarage')}>
+            <Text style={styles.nameGarage}>{item.name}</Text>
             <View style={styles.evaluation}>
               <View style={styles.ratting}>
-                <Text style={styles.countRating}>4.5</Text>
+                <Text style={styles.countRating}>{item.ratting}</Text>
                 <Rating
                   imageSize={16}
                   ratingCount={1}
@@ -85,13 +151,13 @@ const SearchGarage = () => {
                 />
               </View>
               <View style={styles.comments}>
-                <Text style={styles.countRating}>10</Text>
+                <Text style={styles.countRating}>{item.comments}</Text>
                 <Icon name="chatbox-ellipses" size={16} color="red" />
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
-        keyExtractor={item => item.toString()}
+        keyExtractor={item => item.id}
       />
     </View>
   );

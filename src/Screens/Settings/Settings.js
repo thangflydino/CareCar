@@ -95,7 +95,8 @@ const Settings = () => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.logout}>
+        <TouchableOpacity style={styles.logout}
+          onPress={()=>navigation.replace('Login')}>
           <Text style={styles.textLogout}>Đăng xuất</Text>
         </TouchableOpacity>
       </ScrollView>

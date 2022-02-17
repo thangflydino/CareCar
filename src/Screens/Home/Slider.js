@@ -20,7 +20,7 @@ const Slider = ({listImage}) => {
         renderItem={({ item }) => (
           <Image
               source={{uri: item}}
-              style={{width: width, height: height / 3.6}}
+              style={{width: width, height: height / 4.5}}
             />
         )}
       />

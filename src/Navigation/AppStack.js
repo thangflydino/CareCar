@@ -17,6 +17,12 @@ import QRCode from "./../Screens/QRCode/QRCode";
 import UpdateName from "./../Screens/Settings/UpdateName/UpdateName";
 import UpdateAddress from "./../Screens/Settings/UpdateAddress/UpdateAddress";
 import ChangePassword from "./../Screens/Settings/ChangePassword/ChangePassword";
+import WriteReview from "./../Screens/Home/DetailGarage/WriteReview/WriteReview";
+import MakeAnAppointment from "./../Screens/Home/MakeAnAppointment/MakeAnAppointment";
+import ChoiceGarage from "./../Screens/Home/MakeAnAppointment/ChoiceGarage/ChoiceGarage";
+import ChoiceDate from "./../Screens/Home/MakeAnAppointment/ChoiceDate/ChoiceDate";
+import ChoiceLocation from "./../Screens/Home/ChoiceLocation/ChoiceLocation";
+import Message from "./../Screens/Chat/Message";
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -150,6 +156,12 @@ const AppStack = () => {
       <Stack.Screen name="UpdateName" component={UpdateName} />
       <Stack.Screen name="UpdateAddress" component={UpdateAddress} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="WriteReview" component={WriteReview} />
+      <Stack.Screen name="MakeAnAppointment" component={MakeAnAppointment} />
+      <Stack.Screen name="ChoiceGarage" component={ChoiceGarage} />
+      <Stack.Screen name="ChoiceDate" component={ChoiceDate} />
+      <Stack.Screen name="ChoiceLocation" component={ChoiceLocation} />
+      <Stack.Screen name="Message" component={Message} />
     </Stack.Navigator>
   )
 }

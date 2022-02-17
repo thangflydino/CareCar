@@ -3,7 +3,9 @@ import React from 'react';
 import {Rating} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Avatar} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
 const Evaluate = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.info}>
@@ -22,7 +24,8 @@ const Evaluate = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.comment}>
-        <TouchableOpacity style={styles.btnComment}>
+        <TouchableOpacity style={styles.btnComment}
+          onPress={() =>navigation.navigate('WriteReview')}>
           <Text style={styles.textBtnComment}>Viết đánh giá</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSort}>

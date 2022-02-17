@@ -12,12 +12,8 @@ const Header = () => {
       >
         <Icon name="arrow-back-outline" size={30} color="red" />
       </TouchableOpacity>
-      <Text style={styles.name} numberOfLines={1}>Shinwa Pro Garage</Text>
-      <TouchableOpacity
-        onPress={() =>{}}
-      >
-        <Icon name="share-social-outline" size={30} color="red" />
-      </TouchableOpacity>
+      <Text style={styles.name} numberOfLines={1}>Đánh Giá</Text>
+      <Icon name="share-social-outline" size={30} color="transparent" />
     </View>
   )
 }

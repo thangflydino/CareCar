@@ -3,6 +3,26 @@ import React from 'react'
 import {LocaleConfig} from 'react-native-calendars';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
+LocaleConfig.locales['fr'] = {
+  monthNames: [
+    'Tháng 1',
+    'Tháng 2',
+    'Tháng 3',
+    'Tháng 4',
+    'Tháng 5',
+    'Tháng 6',
+    'Tháng 7',
+    'Tháng 8',
+    'Tháng 9',
+    'Tháng 10',
+    'Tháng 11',
+    'Tháng 12',
+  ],
+  dayNames: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+  dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+  today: 'Hôm nay',
+};
+LocaleConfig.defaultLocale = 'fr';
 const Appointment = () => {
   return (
     <View style={styles.container}>
@@ -18,36 +38,13 @@ const Appointment = () => {
         </View>
       </View>
       <Calendar
-        // Initially visible month. Default = now
-        current={'2022-16-02'}
-        // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-        minDate={'2022-16-02'}
-        // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-        maxDate={'2023-05-30'}
-        // Handler which gets executed on day press. Default = undefined
-        onDayPress={day => {
-          console.log('selected day', day);
+        // Collection of dates that have to be marked. Default = {}
+        markedDates={{
+          '2022-02-18': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
+          '2022-02-19': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
+          '2022-02-20': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
+          '2022-02-21': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
         }}
-        // Handler which gets executed on day long press. Default = undefined
-        onDayLongPress={day => {
-          console.log('selected day', day);
-        }}
-        // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-        monthFormat={'yyyy MM'}
-        // Handler which gets executed when visible month changes in calendar. Default = undefined
-        onMonthChange={month => {
-          console.log('month changed', month);
-        }}
-        firstDay={1}
-        showWeekNumbers={true}
-        // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-        onPressArrowLeft={subtractMonth => subtractMonth()}
-        // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-        onPressArrowRight={addMonth => addMonth()}
-        renderHeader={date => {
-        }}
-        // Enable the option to swipe between months. Default = false
-        enableSwipeMonths={true}
       />
     </View>
   )

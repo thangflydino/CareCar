@@ -13,7 +13,8 @@ import Slider from './Slider';
 import {Rating} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-const Home = () => {
+const Home = ({route}) => {
+  const location = route.params?.location || 'Đà Nẵng';
   const navigation = useNavigation();
   const listImage = ['https://i.ibb.co/NmBdF7f/Banner.png','https://i.ibb.co/CWRM5L3/41759a96bdac71f228bd.jpg']
   const listCategory = [
@@ -22,6 +23,7 @@ const Home = () => {
     },
     {
       name: 'Đặt lịch hẹn',
+      type: 'makeAnAppointment',
     },
     {
       name: 'Khuyến mãi',
@@ -30,6 +32,11 @@ const Home = () => {
       name: 'Rửa xe',
     },
   ];
+  const handlePressCategory = (type) => {
+    if(type === 'makeAnAppointment'){
+      navigation.navigate('MakeAnAppointment');
+    }
+  }
   return (
     <ScrollView style={styles.container}
       stickyHeaderIndices={[2]}
@@ -38,7 +45,9 @@ const Home = () => {
       <Slider listImage={listImage}/>
       <View style={styles.listCategory}>
         {listCategory.map((item, index) => (
-          <TouchableOpacity style={styles.itemCategory} key={item.name}>
+          <TouchableOpacity style={styles.itemCategory} key={item.name}
+            onPress={() => handlePressCategory(item.type)}
+          >
             <Image
               style={styles.image}
               source={{
@@ -55,10 +64,12 @@ const Home = () => {
           onPress={() =>navigation.navigate('SearchGarage')}
         >
           <Icon name="search" size={24} color="gray" />
-          <Text style={styles.textSearch}>Nhập tên garage hoặc dịch vụ</Text>
+          <Text style={styles.textSearch} numberOfLines={1}>Nhập tên garage hoặc dịch vụ</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.inputSearch}>
-          <Text style={[styles.textSearch,{color:'black'}]}>Đà Nẵng</Text>
+        <TouchableOpacity style={styles.inputSearch}
+          onPress={() =>navigation.navigate('ChoiceLocation')}
+        >
+          <Text style={[styles.textSearch,{color:'black'}]}>{location}</Text>
           <Icon name="chevron-down-outline" size={24} color="red" />
         </TouchableOpacity>
       </View>

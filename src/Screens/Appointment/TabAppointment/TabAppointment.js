@@ -1,13 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Detail from './Detail/Detail';
-import Evaluate from './Evaluate/Evaluate';
-import Service from "./Service/Service";
-import Appointment from "./Appointment/Appointment";
-import { Tabs } from 'react-native-collapsible-tab-view'
+import Booked from "./Booked/Booked";
+import Complete from "./Complete/Complete";
+import Canceled from "./Canceled/Canceled";
+
 const Tab = createMaterialTopTabNavigator();
-const MyTabs = () => {
+const TabAppointment = () => {
   return (
     <Tab.Navigator
       initialRouteName="Evaluate"
@@ -16,7 +15,7 @@ const MyTabs = () => {
         tabBarStyle: {backgroundColor: 'white'},
         swipeEnabled:false,
       }}>
-      <Tab.Screen name="Detail" component={Detail}
+      <Tab.Screen name="Booked" component={Booked}
         options={{
           tabBarLabel: ({focused}) => (
             <Text
@@ -24,11 +23,11 @@ const MyTabs = () => {
                 fontSize: 16,
                 color: focused ? 'red' : 'black',
               }}>
-              Thông tin
+              Đã đặt
             </Text>
           ),
         }}/>
-      <Tab.Screen name="Service" component={Service}
+      <Tab.Screen name="Complete" component={Complete}
         options={{
           tabBarLabel: ({focused}) => (
             <Text
@@ -36,11 +35,11 @@ const MyTabs = () => {
                 fontSize: 16,
                 color: focused ? 'red' : 'black',
               }}>
-              Dịch vụ
+              Hoàn thành
             </Text>
           ),
         }}/>
-        <Tab.Screen name="Appointment" component={Appointment}
+        <Tab.Screen name="Canceled" component={Canceled}
         options={{
           tabBarLabel: ({focused}) => (
             <Text
@@ -48,27 +47,14 @@ const MyTabs = () => {
                 fontSize: 16,
                 color: focused ? 'red' : 'black',
               }}>
-              Lịch hẹn
+              Đã huỷ
             </Text>
           ),
         }}/>
-      <Tab.Screen name="Evaluate" component={Evaluate}
-        options={{
-          tabBarLabel: ({focused}) => (
-            <Text
-              style={{
-                fontSize: 16,
-                color: focused ? 'red' : 'black',
-              }}>
-              Đánh giá
-            </Text>
-          ),
-        }}/>
-        
     </Tab.Navigator>
   );
 };
-export default MyTabs;
-const styles = StyleSheet.create({
-});
 
+export default TabAppointment;
+
+const styles = StyleSheet.create({});

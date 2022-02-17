@@ -20,7 +20,7 @@ const Login = () => {
   function handleLogin() {
     if (!number) Alert.alert('Thông báo', 'Bạn chưa nhập số điện thoại');
     else if (!password) Alert.alert('Thông báo', 'Bạn chưa nhập mật khẩu');
-    else navigation.replace('Home');
+    else navigation.replace('MyTabs');
   }
   return (
     <View style={styles.container}>

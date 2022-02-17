@@ -4,7 +4,7 @@ import React from 'react'
 const Header = () => {
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>Chat</Text>
+      <Text style={styles.title}>Lịch hẹn</Text>
     </View>
   )
 }
