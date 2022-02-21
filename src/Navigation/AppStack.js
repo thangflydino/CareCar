@@ -23,6 +23,7 @@ import ChoiceGarage from "./../Screens/Home/MakeAnAppointment/ChoiceGarage/Choic
 import ChoiceDate from "./../Screens/Home/MakeAnAppointment/ChoiceDate/ChoiceDate";
 import ChoiceLocation from "./../Screens/Home/ChoiceLocation/ChoiceLocation";
 import Message from "./../Screens/Chat/Message";
+import CallForHelp from "./../Screens/Home/CallForHelp/CallForHelp";
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -162,6 +163,7 @@ const AppStack = () => {
       <Stack.Screen name="ChoiceDate" component={ChoiceDate} />
       <Stack.Screen name="ChoiceLocation" component={ChoiceLocation} />
       <Stack.Screen name="Message" component={Message} />
+      <Stack.Screen name="CallForHelp" component={CallForHelp} />
     </Stack.Navigator>
   )
 }

@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/geolocation": "^2.0.2",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.8",
@@ -20,14 +21,18 @@
     "react-native-calendars": "^1.1278.0",
     "react-native-collapsible-tab-view": "^4.5.2",
     "react-native-elements": "^3.4.2",
+    "react-native-geocoding": "^0.5.0",
     "react-native-gesture-handler": "^2.2.0",
+    "react-native-gifted-chat": "^0.16.3",
     "react-native-maps": "^0.30.1",
+    "react-native-modal": "^13.0.0",
     "react-native-pager-view": "^5.4.11",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.11.1",
     "react-native-swiper-flatlist": "^3.0.16",
     "react-native-tab-view": "^3.1.1",
-    "react-native-vector-icons": "^9.1.0"
+    "react-native-vector-icons": "^9.1.0",
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

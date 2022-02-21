@@ -20,22 +20,29 @@ const Home = ({route}) => {
   const listCategory = [
     {
       name: 'Gọi cứu hộ',
+      type: 'CallForHelp',
+      image:'https://i.ibb.co/wcnfckL/89b1a761dd8911d748983.jpg'
     },
     {
       name: 'Đặt lịch hẹn',
       type: 'makeAnAppointment',
+      image:'https://i.ibb.co/fNn9FXK/e085525e28b6e4e8bda74.jpg'
     },
     {
       name: 'Khuyến mãi',
+      image:'https://i.ibb.co/hDPckw0/114613b57a5db603ef4c.jpg'
     },
     {
       name: 'Rửa xe',
+      image:'https://i.ibb.co/GCd4jt0/9f6f73890961c53f9c705.jpg'
     },
   ];
   const handlePressCategory = (type) => {
     if(type === 'makeAnAppointment'){
       navigation.navigate('MakeAnAppointment');
     }
+    else if(type === 'CallForHelp')
+      navigation.navigate('CallForHelp');
   }
   return (
     <ScrollView style={styles.container}
@@ -51,7 +58,7 @@ const Home = ({route}) => {
             <Image
               style={styles.image}
               source={{
-                uri: 'https://i.ibb.co/CWRM5L3/41759a96bdac71f228bd.jpg',
+                uri: item.image,
               }}
             />
             <Text style={styles.textCategory}>{item.name}</Text>
@@ -132,16 +139,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   image: {
-    width: 40,
-    height: 40,
+    height: 50,
+    width: '80%',
+    resizeMode:'contain',
   },
   itemCategory: {
     width: (width - 50) / 4,
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 5,
-    paddingVertical: 5,
     paddingTop: 10,
+    paddingVertical: 5,
   },
   textCategory: {
     fontSize: 14,

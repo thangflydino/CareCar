@@ -15,7 +15,8 @@ const MyTabs = () => {
         tabBarIndicatorStyle: {backgroundColor: 'red'},
         tabBarStyle: {backgroundColor: 'white'},
         swipeEnabled:false,
-      }}>
+      }}
+      >
       <Tab.Screen name="Detail" component={Detail}
         options={{
           tabBarLabel: ({focused}) => (

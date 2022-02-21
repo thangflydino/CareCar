@@ -72,7 +72,7 @@ const garage = [
     name: 'Shinwa Pro Garage',
     ratting: 4.5,
     comments: 10,
-  },
+  }
 ]
 
 const SearchGarage = () => {
@@ -115,6 +115,7 @@ const SearchGarage = () => {
         <FlatList
           data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
           renderItem={({item,index}) => (
             <Pressable 
               style={[styles.itemCar,(indexCarChoice==index)&&styles.itemCarChoice]}
@@ -135,6 +136,7 @@ const SearchGarage = () => {
       </View>
       <FlatList
         data={garage}
+        showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <TouchableOpacity style={styles.itemGarage}
             onPress={() =>navigation.navigate('DetailGarage')}>
