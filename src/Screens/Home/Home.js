@@ -25,24 +25,30 @@ const Home = ({route}) => {
     },
     {
       name: 'Đặt lịch hẹn',
-      type: 'makeAnAppointment',
+      type: 'MakeAnAppointment',
       image:'https://i.ibb.co/fNn9FXK/e085525e28b6e4e8bda74.jpg'
     },
     {
       name: 'Khuyến mãi',
-      image:'https://i.ibb.co/hDPckw0/114613b57a5db603ef4c.jpg'
+      image:'https://i.ibb.co/hDPckw0/114613b57a5db603ef4c.jpg',
+      type:'Voucher'
     },
     {
       name: 'Rửa xe',
-      image:'https://i.ibb.co/GCd4jt0/9f6f73890961c53f9c705.jpg'
+      image:'https://i.ibb.co/GCd4jt0/9f6f73890961c53f9c705.jpg',
+      type:'CarWash'
     },
   ];
   const handlePressCategory = (type) => {
-    if(type === 'makeAnAppointment'){
+    if(type === 'MakeAnAppointment'){
       navigation.navigate('MakeAnAppointment');
     }
     else if(type === 'CallForHelp')
       navigation.navigate('CallForHelp');
+    else if(type === 'Voucher')
+      navigation.navigate('Voucher');
+    else if(type === 'CarWash')
+    navigation.navigate('CarWash');
   }
   return (
     <ScrollView style={styles.container}

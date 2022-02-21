@@ -7,6 +7,7 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,7 +21,10 @@ const Login = () => {
   function handleLogin() {
     if (!number) Alert.alert('Thông báo', 'Bạn chưa nhập số điện thoại');
     else if (!password) Alert.alert('Thông báo', 'Bạn chưa nhập mật khẩu');
-    else navigation.replace('MyTabs');
+    else {
+      ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
+      navigation.replace('MyTabs');
+    }
   }
   return (
     <View style={styles.container}>
@@ -28,7 +32,7 @@ const Login = () => {
         <View style={styles.br1} />
         <View style={styles.br2} />
       </View>
-        <View style={styles.content}>
+      <View style={styles.content}>
         <TouchableOpacity
           style={styles.header}
           onPress={() => {

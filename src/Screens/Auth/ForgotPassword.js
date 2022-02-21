@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     else 
       {
         Alert.alert('Thông báo', 'Mã xác nhận đã được gửi qua SMS');
-        navigation.replace('Home');
+        navigation.replace('MyTabs');
       }
   }
   return (

@@ -28,7 +28,7 @@ const WriteReview = () => {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.body}>
          <View style={styles.infoGarage}>
           <Image
             style={styles.imageGarage}
@@ -82,10 +82,10 @@ const WriteReview = () => {
           numberOfLines={10}
           textAlignVertical= 'top'
           />
-        <TouchableOpacity style={styles.btnSubmit}>
-          <Text style={styles.textSubmit}>Gửi đánh giá</Text>
-        </TouchableOpacity>
       </ScrollView>
+      <TouchableOpacity style={styles.btnSubmit}>
+          <Text style={styles.textSubmit}>Gửi đánh giá</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -96,6 +96,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  body:{
+    marginBottom:60,
   },
   imageGarage: {
     width: 80,
@@ -138,14 +141,17 @@ const styles = StyleSheet.create({
   itemImage: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: (width-40)/3,
-    height: 100,
-    padding:10,
+    width: (width-60)/3,
+    height: (width-60)/3,
     borderWidth:1,
-    marginLeft: 10,
+    marginHorizontal: 5,
     marginBottom: 10,
   },
   btnSubmit:{
+    position: 'absolute',
+    bottom:0,
+    left:0,
+    right:0,
     backgroundColor: 'red',
     padding: 10,
     margin:10,

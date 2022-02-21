@@ -45,6 +45,9 @@ const Appointment = () => {
           '2022-02-20': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
           '2022-02-21': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
         }}
+        onDayPress={day => {
+          console.log('selected day', day);
+        }}
       />
     </View>
   )

@@ -24,6 +24,9 @@ import ChoiceDate from "./../Screens/Home/MakeAnAppointment/ChoiceDate/ChoiceDat
 import ChoiceLocation from "./../Screens/Home/ChoiceLocation/ChoiceLocation";
 import Message from "./../Screens/Chat/Message";
 import CallForHelp from "./../Screens/Home/CallForHelp/CallForHelp";
+import Voucher from "./../Screens/Home/Voucher/Voucher";
+import DetailVoucher from "./../Screens/Home/Voucher/DetailVoucher/DetailVoucher";
+import CarWash from "./../Screens/Home/CarWash/CarWash";
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -164,6 +167,9 @@ const AppStack = () => {
       <Stack.Screen name="ChoiceLocation" component={ChoiceLocation} />
       <Stack.Screen name="Message" component={Message} />
       <Stack.Screen name="CallForHelp" component={CallForHelp} />
+      <Stack.Screen name="Voucher" component={Voucher} />
+      <Stack.Screen name="DetailVoucher" component={DetailVoucher} />
+      <Stack.Screen name="CarWash" component={CarWash} />
     </Stack.Navigator>
   )
 }

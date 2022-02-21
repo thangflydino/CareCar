@@ -1,23 +1,10 @@
 import { StyleSheet, Text, View,TouchableOpacity,Pressable } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Modal from 'react-native-modal';
-const Service = () => {
+import Icon from 'react-native-vector-icons/Ionicons'
+const Service = ({listService,selected,setSelected}) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [contentModal,setContentModal] = useState({})
-  const listService=[
-    {
-      name:'Chăm sóc xe',
-      description:'- Rửa xe, rửa gầm, hút bụi Rửa xe, rửa gầm, hút bụi',
-    },
-    {
-      name:'Sửa chữa bảo dưởng ô tô',
-      description:'- Chẩn đoán, đọc, xóa lỗi ô tô thế hệ mới - Hệ thống phun xăng điện tử EFI, GDI - Sửa chữa, bảo dưỡng, đại tu Máy – Gầm – Điện - Điện - Điện lạnh - Hỗ trợ sửa chữa lưu động, sửa chữa tại nhà, cơ quan',
-    },
-    {
-      name:'Đồng sơn ô tô',
-      description:'- Gò, Hàn, Sơn ,phục hồi xe tai nạn. - Sơn La zăng. - Sơn chóe đèn ô tô. - Sơn đổi màu, sơn theo yêu cầu.',
-    }
-  ]
   return (
     <View style={styles.container}>
       {
@@ -28,8 +15,19 @@ const Service = () => {
               setModalVisible(true)
             }}
           >
+            <View style={{flex: 1}}>
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.description}numberOfLines={1}>{item.description}</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() =>{
+                if(selected.indexOf(index)==-1)
+                  setSelected([...selected,index])
+                else setSelected(selected.filter(a=>a!=index))
+              }}
+            >
+              <Icon name="chevron-down-circle" size={30} color={selected.indexOf(index)==-1?"gray":'red'}/>
+            </TouchableOpacity>
           </TouchableOpacity>
         ))
       }
@@ -63,7 +61,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   item:{
-    marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
         backgroundColor: '#fff',
         elevation: 3,
         padding:10,
@@ -74,11 +74,12 @@ const styles = StyleSheet.create({
   name:{
     fontSize:16,
     fontWeight:'bold',
-    color: 'black'
+    color: 'black',
   },
   description:{
     fontSize:14,
-    color: 'gray'
+    color: 'gray',
+    marginRight:10,
   },
   // modal
   modalText: {

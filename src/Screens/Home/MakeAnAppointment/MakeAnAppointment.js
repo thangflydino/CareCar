@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
-import Service from "./../DetailGarage/MyTabs/Service/Service";
+import Service from "./Service";
 import {CheckBox} from 'react-native-elements';
 const procedure = [
   {
@@ -22,6 +22,20 @@ const procedure = [
     count: 3,
   },
 ];
+ const listService=[
+    {
+      name:'Chăm sóc xe',
+      description:'- Rửa xe, rửa gầm, hút bụi Rửa xe, rửa gầm, hút bụi',
+    },
+    {
+      name:'Sửa chữa bảo dưởng ô tô',
+      description:'- Chẩn đoán, đọc, xóa lỗi ô tô thế hệ mới - Hệ thống phun xăng điện tử EFI, GDI - Sửa chữa, bảo dưỡng, đại tu Máy – Gầm – Điện - Điện - Điện lạnh - Hỗ trợ sửa chữa lưu động, sửa chữa tại nhà, cơ quan',
+    },
+    {
+      name:'Đồng sơn ô tô',
+      description:'- Gò, Hàn, Sơn ,phục hồi xe tai nạn. - Sơn La zăng. - Sơn chóe đèn ô tô. - Sơn đổi màu, sơn theo yêu cầu.',
+    }
+  ]
 const time =['07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00']
 const MakeAnAppointment = ({route}) => {
   const navigation = useNavigation();
@@ -35,6 +49,7 @@ const MakeAnAppointment = ({route}) => {
   const [infoCar, setInfoCar] = useState('');
   const [numberCar, setNumberCar] = useState('');
   const [firstOrdering, setFirstOrdering] = useState(false);
+  const [selected,setSelected] = useState([])
   const handleOnNext = () => {
     switch (step) {
       case 1:
@@ -48,7 +63,10 @@ const MakeAnAppointment = ({route}) => {
           setStep(step + 1);
         break;
       case 2:
-        setStep(step + 1);
+        if(selected.length > 0)
+          setStep(step + 1);
+        else
+          Alert.alert('Thông báo','Vui lòng chọn dịch vụ');
         break;
       case 3:
         Alert.alert('Thông báo','Đặt lịch thành công')
@@ -106,6 +124,7 @@ const MakeAnAppointment = ({route}) => {
         </View>
         {date&&<View>
           <FlatList
+          showsHorizontalScrollIndicator={false}
           data={time}
           horizontal={true}
           renderItem={({item}) => (
@@ -127,7 +146,7 @@ const MakeAnAppointment = ({route}) => {
             style={styles.input}
           />
         </View>
-        <Service/>
+        <Service listService={listService} selected={selected} setSelected={setSelected}/>
       </View>}
       {step==3&&<View style={styles.content}>
         <View style={styles.formInput}>

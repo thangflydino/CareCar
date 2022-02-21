@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   Alert,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,7 +17,10 @@ const ConfirmPhoneNumber = () => {
   const [number, setNumber] = useState('');
   function handleLogin() {
     if (!number) Alert.alert('Thông báo', 'Vui lòng nhập mã xác nhận');
-    else navigation.replace('Home');
+    else {
+      ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT);
+      navigation.replace('MyTabs');
+    }
   }
   return (
     <View style={styles.container}>
@@ -33,24 +37,24 @@ const ConfirmPhoneNumber = () => {
           <Icon name="arrow-back-outline" size={34} color="#fff" />
         </TouchableOpacity>
         <View style={styles.formLogin}>
-            <Text style={styles.title}>Mã xác thực</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={setNumber}
-              value={number}
-            />
-            <TouchableOpacity
-              style={styles.btnLogin}
-              onPress={() => {
-                handleLogin();
-              }}>
-              <Text style={styles.btnLoginText}>Xác nhận</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btnForgotPassword}>
-              <Text style={styles.btnForgotPasswordText}>Gửi lại mã</Text>
-            </TouchableOpacity>
-          </View>
-          <View/>
+          <Text style={styles.title}>Mã xác thực</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setNumber}
+            value={number}
+          />
+          <TouchableOpacity
+            style={styles.btnLogin}
+            onPress={() => {
+              handleLogin();
+            }}>
+            <Text style={styles.btnLoginText}>Xác nhận</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btnForgotPassword}>
+            <Text style={styles.btnForgotPasswordText}>Gửi lại mã</Text>
+          </TouchableOpacity>
+        </View>
+        <View />
       </View>
     </View>
   );
