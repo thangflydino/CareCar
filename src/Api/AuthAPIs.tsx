@@ -57,16 +57,37 @@ export default class AuthAPIs {
         }
     }
 
-    static async updateProfile(data :object,dataUser:object){
+    static async updateProfile(data,dataUser){
         const data2 ={
           ...data,
           _method:'PUT'
         }
         const headers ={
           'Authorization':`Bearer ${dataUser.access_token}`,
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
         console.log('data2',data2,'dataUser',dataUser,'headers',headers)
+        try {
+            let response = await axios.post(AuthAPIs.endpoints.updateProfile, data2, { headers: headers})
+            // // // let user = new UserModel(response.data)
+            // // // AppManager.shared.currentUser = user
+            return Promise.resolve(response.data)
+        } catch (error) {
+            console.log('eaaa',error)
+            return Promise.reject(error)
+        }
+    }
+    static async updateAvatarProfile(data,dataUser){
+        const data2 ={
+          ...data,
+          _method:'PUT'
+        }
+        const headers ={
+          'Authorization':`Bearer ${dataUser.access_token}`,
+          'Accept': 'application/json',
+          "Content-Type": "multipart/form-data"
+        }
         try {
             let response = await axios.post(AuthAPIs.endpoints.updateProfile, data2, { headers: headers})
             // // // let user = new UserModel(response.data)

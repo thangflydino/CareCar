@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Pressable,
+  Alert
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from './Header';
@@ -15,6 +16,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
 import { Dimensions } from "react-native";
 import StorageManager from "./../../Api/StorageManager";
+import AuthAPIs from "./../../Api/AuthAPIs";
+import FormData from 'form-data'
 const Settings = () => {
   const navigation = useNavigation();
   const [dataUser,setDataUser] = useState({})
@@ -51,9 +54,29 @@ const Settings = () => {
     if (type === 'address') navigation.navigate('UpdateAddress');
     if (type === 'password') navigation.navigate('ChangePassword',{dataUser:dataUser});
   };
+  const handleOnSaveImage = (file) => {
+    var img = new FormData();
+    img.append('file',file);
+    const data ={
+      avatar:img
+    }
+     AuthAPIs.updateAvatarProfile(data,dataUser).then((res) => {
+            Alert.alert('Thông báo', 'Cập nhật avatar thành công')
+            navigation.goBack()
+          }).catch((err) => {
+              Alert.alert('Thông báo', 'Lỗi')
+              console.log('err',err)
+          })
+  }
   const openCamera = () => {
     ImagePicker.openCamera({mediaType: 'photo'})
       .then(image => {
+        let file ={
+          uri:image.path,
+          type:image.mime,
+          name :image.path.substring(image.path.lastIndexOf('/') + 1)
+        }
+        handleOnSaveImage(file);
         setModalVisible(false);
       })
       .catch(error => {});
@@ -61,6 +84,12 @@ const Settings = () => {
   const openLibrary = () => {
     ImagePicker.openPicker({mediaType: 'photo'})
       .then(image => {
+        let file ={
+          uri:image.path,
+          type:image.mime,
+          name :image.path.substring(image.path.lastIndexOf('/') + 1)
+        }
+        handleOnSaveImage(file);
         setModalVisible(false);
       })
       .catch(error => {});

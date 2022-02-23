@@ -24,7 +24,9 @@ const DataSearch = ({route}) => {
     HomeApis.searchGarage(valueSearch).then(res => {
       setLoading(false)
       setListDataGarageSearch(res.data);
-    });
+    }).catch((err)=>{
+       setLoading(false)
+    })
   }, [valueSearch]);
   console.log('listDataGarageSearch',listDataGarageSearch)
   return (

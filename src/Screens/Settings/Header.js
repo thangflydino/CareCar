@@ -5,6 +5,7 @@ const Header = () => {
   return (
     <View style={styles.header}>
       <Text style={styles.title}>Tài khoản</Text>
+      <Text style={styles.title2}>Tài khoản</Text>
     </View>
   )
 }
@@ -21,7 +22,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: 'red',
+    fontFamily: 'Poppins-Medium'
+  },
+  title2: {
+    fontSize: 20,
+    // fontWeight: 'bold',
+    color: 'red',
+    fontFamily: 'Poppins-Medium'
   }
 })

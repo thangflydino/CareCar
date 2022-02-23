@@ -2,6 +2,7 @@ import { StyleSheet, Text, View,TouchableOpacity,TextInput,Alert } from 'react-n
 import React,{useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from "@react-navigation/native";
+import AuthAPIs from "./../../../Api/AuthAPIs";
 const ChangePassword = ({route}) => {
   const dataUser = route?.params?.dataUser
   const navigation = useNavigation();
@@ -10,17 +11,23 @@ const ChangePassword = ({route}) => {
   const [rePasswordNew, setRePasswordNew] = useState('')
   const handleOnSave =()=>{
     console.log('dataUser',dataUser)
-    // const data ={
-    //   name: name
-    // }
-    if(passwordOld.length<6 || passwordOld.length<6 ||rePasswordNew||6) Alert.alert('Thông báo', 'Mật khẩu tối thiểu 6 ký tự')
+   
+    if(passwordOld.length<6 || passwordOld.length<6 ||rePasswordNew<6) Alert.alert('Thông báo', 'Mật khẩu tối thiểu 6 ký tự')
     else if(passwordNew!=rePasswordNew) Alert.alert('Thông báo', 'Mật khẩu nhập lại không chình xác')
-    // AuthAPIs.updateProfile(data,dataUser).then((res) => {
-    //    StorageManager.setDataUser({
-    //      ...dataUser, user:{...dataUser?.user,...res}
-    //    })
-    //    navigation.goBack()
-    // })
+    else
+      {
+         const data ={
+            password: passwordNew,
+            old_password:passwordOld,
+            password_confirmation:passwordNew,
+          }
+        AuthAPIs.updateProfile(data,dataUser).then((res) => {
+            Alert.alert('Thông báo', 'Thay đổi mật khẩu thành công')
+            navigation.goBack()
+          }).catch((err) => {
+              Alert.alert('Thông báo', 'Mật khẩu cũ không chính xác')
+          })
+      }
   }
   return (
     <View style={styles.container}>
