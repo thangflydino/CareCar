@@ -19,7 +19,7 @@ const DetailVoucher = () => {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Image
           style={styles.image}
           source={{

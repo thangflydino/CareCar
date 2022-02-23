@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View,TouchableOpacity,Image,TextInput,Alert,ScrollView} from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,Image,TextInput,Alert,ScrollView,ToastAndroid} from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { CheckBox } from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native'
+import AuthAPIs from "./../../Api/AuthAPIs";
 const Register = () => {
   const navigation = useNavigation();
   const [name, setName] = useState('')
@@ -15,14 +16,29 @@ const Register = () => {
       Alert.alert('Thông báo','Bạn chưa nhập tên')
     else if(!number)
       Alert.alert('Thông báo','Bạn chưa nhập số điện thoại')
+    else if(number.length!=10)
+      Alert.alert('Thông báo','Số diện thoại không dúng định dạng')  
     else if(!password)
       Alert.alert('Thông báo','Bạn chưa nhập mật khẩu')
+    else if(password.length<6)
+      Alert.alert('Thông báo','Trường mật khẩu phải có tối thiểu 6 ký tự')
     else if(!rePassword)
       Alert.alert('Thông báo','Bạn chưa nhập lại mật khẩu')
     else if(password !== rePassword)
       Alert.alert('Thông báo','Mật khẩu xác nhận không chính xác')
     else 
-        navigation.push('ConfirmPhoneNumber')
+        {
+          // navigation.push('ConfirmPhoneNumber')
+          AuthAPIs.register(number,password,rePassword,name)
+          .then(res => {
+              ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT)
+              navigation.push('MyTabs')
+          }).catch((err)=>
+             {
+                Alert.alert('Thông báo', 'Số điện thoại đã được đăng ký')
+             }
+          )
+        }
   }
   return (
     <View style={styles.container}>

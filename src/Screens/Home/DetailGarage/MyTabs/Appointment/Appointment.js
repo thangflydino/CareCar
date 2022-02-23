@@ -2,7 +2,7 @@ import { StyleSheet, Text, View,ScrollView } from 'react-native'
 import React from 'react'
 import {LocaleConfig} from 'react-native-calendars';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-
+import {useNavigation} from '@react-navigation/native';
 LocaleConfig.locales['fr'] = {
   monthNames: [
     'Tháng 1',
@@ -24,6 +24,7 @@ LocaleConfig.locales['fr'] = {
 };
 LocaleConfig.defaultLocale = 'fr';
 const Appointment = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bạn có thể chọn ngày để đặt lịch hẹn với garage</Text>
@@ -46,7 +47,10 @@ const Appointment = () => {
           '2022-02-21': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
         }}
         onDayPress={day => {
-          console.log('selected day', day);
+          navigation.navigate('MakeAnAppointment', {
+                  nameGarage: 'JP Long',
+                  date: day.dateString
+                })
         }}
       />
     </View>

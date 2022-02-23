@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View,TouchableOpacity,Pressable } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Modal from 'react-native-modal';
-const Service = () => {
+import Nodata from "./../../../../../Components/Nodata";
+const Service = ({services}) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [contentModal,setContentModal] = useState({})
   const listService=[
@@ -20,8 +21,9 @@ const Service = () => {
   ]
   return (
     <View style={styles.container}>
-      {
-        listService.map((item,index)=>(
+      { 
+      services.length==0?<Nodata title={'Không có dịnh vụ nào'}/>:
+        services.map((item,index)=>(
           <TouchableOpacity style={styles.item} key={item.name}
             onPress={() =>{
               setContentModal(item)
@@ -63,12 +65,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   item:{
-    marginTop: 10,
+        margin: 10,
+        marginVertical:5,
         backgroundColor: '#fff',
         elevation: 3,
         padding:10,
-        margin:10,
-        marginBottom:0,
         borderRadius:10,
   },
   name:{

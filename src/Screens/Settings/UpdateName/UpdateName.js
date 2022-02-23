@@ -2,9 +2,30 @@ import { StyleSheet, Text, View,TouchableOpacity,TextInput } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from "@react-navigation/native";
-const UpdateName = () => {
-  const [name, setName] = useState('Nguyễn Văn A')
+import AuthAPIs from "./../../../Api/AuthAPIs";
+import StorageManager from "./../../../Api/StorageManager";
+const UpdateName = ({route}) => {
+  const [name, setName] = useState(route?.params.name||'')
+  const [dataUser, setDataUser] = useState({})
   const navigation = useNavigation()
+  useEffect(() => {
+    StorageManager.getDataUser().then((dataUser) => {
+      setDataUser(dataUser)
+      console.log('dataUser',dataUser)
+    })
+  },[])
+  const handleOnSave =() => {
+    const data ={
+      name: name
+    }
+    AuthAPIs.updateProfile(data,dataUser).then((res) => {
+       StorageManager.setDataUser({
+         ...dataUser, user:{...dataUser?.user,...res}
+       })
+       navigation.goBack()
+    })
+
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -14,7 +35,9 @@ const UpdateName = () => {
                   <Icon name="ios-arrow-back" size={30} color="red" />
         </TouchableOpacity>
         <Text style={styles.textHeader}>Cập nhật thông tin</Text>
-        <TouchableOpacity style={styles.btnSave}>
+        <TouchableOpacity style={styles.btnSave}
+          onPress={() =>handleOnSave()}
+        >
           <Text style={styles.textSave}>Lưu</Text>
         </TouchableOpacity>
       </View>

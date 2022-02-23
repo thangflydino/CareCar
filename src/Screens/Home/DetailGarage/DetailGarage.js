@@ -1,45 +1,100 @@
-import {StyleSheet, Text, View, ScrollView, Dimensions,TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import Slider from './../Slider';
 import {Rating} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MyTabs from './MyTabs/MyTabs';
 import MapView from 'react-native-maps';
-import {useNavigation} from '@react-navigation/native'
-const DetailGarage = () => {
+import {useNavigation} from '@react-navigation/native';
+import Detail from './MyTabs/Detail/Detail';
+import Service from './MyTabs/Service/Service';
+import Appointment from './MyTabs/Appointment/Appointment';
+import Evaluate from './MyTabs/Evaluate/Evaluate';
+import HomeApis from './../../../Api/HomeAPIs';
+import Loading from "./../../../Components/Loading";
+const tabs = [
+  {
+    id: 0,
+    name: 'Thông tin',
+    type: 'detail',
+  },
+  {
+    id: 1,
+    name: 'Dịch vụ',
+    type: 'service',
+  },
+  {
+    id: 3,
+    name: 'Lịch hẹn',
+    type: 'appointment',
+  },
+  {
+    id: 4,
+    name: 'Đánh giá',
+    type: 'evaluate',
+  },
+];
+
+const DetailGarage = ({route}) => {
+  const idGarage = route?.params?.idGarage || 1;
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
+  const [dataGarage, setDataGarage] = useState({});
+
   const listImage = [
     'https://carecar-prod.s3.ap-southeast-1.amazonaws.com/garages/xL9YSeLwxfcNygaawDOG5CgM6AKZHeAAN17ruW8m.jpg',
     'https://carecar-prod.s3.ap-southeast-1.amazonaws.com/garages/0if7jyVVAdy79p1r502UMJx6qxXXKUtnNNxkG9ba.jpg',
   ];
   const [location, setLocation] = useState({
-     latitude: 16.06613,
-            longitude: 108.2411,
-            latitudeDelta: 0.439158482,
-            longitudeDelta: 0.2272421121,
+    latitude: 16.06613,
+    longitude: 108.2411,
+    latitudeDelta: 0.439158482,
+    longitudeDelta: 0.2272421121,
   });
-  const onRegionChange= (region) =>{
-        setLocation(region);
-        }
+  const [isFocusTab, setIsFocusTab] = useState(3);
+  useEffect(() => {
+    HomeApis.getGarageByID(idGarage)
+      .then(res => {
+        setDataGarage(res);
+        setLoading(false);
+      })
+      .catch(err => {
+        setLoading(false);
+      });
+  }, []);
+  const onRegionChange = region => {
+    setLocation(region);
+  };
   return (
     <View style={styles.container}>
-      <Header />
-      <ScrollView style={{flex: 1}} stickyHeaderIndices={[3]}>
+      <Header name={dataGarage.name}/>
+      {loading?<Loading/>:
+      <ScrollView
+        style={{flex: 1}}
+        stickyHeaderIndices={[3]}
+        showsVerticalScrollIndicator={false}>
         <Slider listImage={listImage} />
         <View style={styles.info}>
           <View style={styles.infoItem}>
-            <Text style={styles.nameGarage}>JP Long</Text>
+            <Text style={styles.nameGarage}>{dataGarage?.name}</Text>
             <View style={styles.address}>
               <Icon name="location-outline" size={20} color="gray" />
               <Text style={styles.textAddress} numberOfLines={2}>
-                630 Nguyễn Hữu Thọ, Cẩm Lệ, Đà Nẵng
+                {dataGarage?.address} {dataGarage?.district}{' '}
+                {dataGarage?.province}
               </Text>
             </View>
           </View>
           <View style={styles.evaluation}>
             <View style={styles.ratting}>
-              <Text style={styles.countRating}>4.5</Text>
+              <Text style={styles.countRating}>{dataGarage?.avg_rating}</Text>
               <Rating
                 imageSize={20}
                 ratingCount={1}
@@ -49,7 +104,7 @@ const DetailGarage = () => {
               />
             </View>
             <View style={styles.comments}>
-              <Text style={styles.countRating}>10</Text>
+              <Text style={styles.countRating}>{dataGarage?.review_count}</Text>
               <Icon name="chatbox-ellipses" size={20} color="red" />
             </View>
           </View>
@@ -58,10 +113,10 @@ const DetailGarage = () => {
           <MapView
             style={styles.mapStyle}
             initialRegion={{
-              latitude: 16.06613,
-              longitude: 108.2411,
-              latitudeDelta: 0.439158482,
-              longitudeDelta: 0.2272421121,
+              latitude: dataGarage?.latitude ||16.06613,
+              longitude: dataGarage?.longitude ||108.2411,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.001,
             }}
             // region={location}
             onRegionChange={onRegionChange}
@@ -74,31 +129,58 @@ const DetailGarage = () => {
               left: 0,
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent:'space-evenly'
+              justifyContent: 'space-evenly',
             }}>
             <View style={styles.timeOpen}>
               <Text style={styles.status}>Đang mởi cửa</Text>
               <Text style={styles.timeOpenTitle}>7:00 - 17:30</Text>
             </View>
-            <TouchableOpacity style={styles.orderNow}
-              onPress={() =>navigation.navigate('MakeAnAppointment',{nameGarage:'JP Long'})}
-            >
-              <Icon name="checkmark-circle" size={20} color="red"/>
+            <TouchableOpacity
+              style={styles.orderNow}
+              onPress={() =>
+                navigation.navigate('MakeAnAppointment', {
+                  nameGarage: dataGarage?.name,
+                })
+              }>
+              <Icon name="checkmark-circle" size={20} color="red" />
               <Text style={styles.titleOrderNow}>Đặt lịch ngay</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.orderNow}
-            onPress={() =>navigation.navigate('Message')}
-            >
-              <Icon name="chatbox-ellipses" size={20} color="red"/>
+            <TouchableOpacity
+              style={styles.orderNow}
+              onPress={() => navigation.navigate('Message')}>
+              <Icon name="chatbox-ellipses" size={20} color="red" />
               <Text style={styles.titleOrderNow}>Chat ngay</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.tabs}>
-          <MyTabs />
+        <>
+          <View style={styles.tabs}>
+            {tabs.map((item, index) => (
+              <TouchableOpacity
+                style={[
+                  styles.itemTab,
+                  isFocusTab == index && styles.itemTabFocus,
+                ]}
+                key={item.type}
+                onPress={() => setIsFocusTab(index)}>
+                <Text
+                  style={[
+                    styles.textTab,
+                    isFocusTab == index && styles.textTabFocus,
+                  ]}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </>
+        <View style={styles.content}>
+          {isFocusTab == 0 && <Detail description={dataGarage?.description}/>}
+          {isFocusTab == 1 && <Service services={dataGarage?.services}/>}
+          {isFocusTab == 2 && <Appointment />}
+          {isFocusTab == 3 && <Evaluate dataGarage={dataGarage}/>}
         </View>
-         {/* <MyTabs /> */}
-      </ScrollView>
+      </ScrollView>}
     </View>
   );
 };
@@ -149,6 +231,7 @@ const styles = StyleSheet.create({
   },
   comments: {
     alignItems: 'center',
+    marginLeft:4,
   },
   myTaps: {
     flex: 1,
@@ -169,21 +252,42 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
   },
-  orderNow:{
-    borderWidth:1,
-    padding:2,
-    borderRadius:6,
+  orderNow: {
+    borderWidth: 1,
+    padding: 2,
+    borderRadius: 6,
     borderColor: 'red',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  titleOrderNow:{
+  titleOrderNow: {
     fontSize: 14,
     color: 'red',
   },
-  tabs:{
-    flex:1,
-    width:'100%',
-    height:height,
-  }
+  tabs: {
+    borderBottomColor: '#e5e5e5',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'white',
+  },
+  itemTab: {
+    flex: 1,
+    padding: 10,
+  },
+  itemTabFocus: {
+    borderBottomColor: 'red',
+    borderBottomWidth: 2,
+  },
+  textTab: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'black',
+  },
+  textTabFocus: {
+    color: 'red',
+  },
+  content: {
+    // flex: 1,
+  },
 });

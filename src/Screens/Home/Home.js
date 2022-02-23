@@ -8,14 +8,19 @@ import {
   TouchableOpacity,
   ScrollView
 } from 'react-native';
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import Slider from './Slider';
 import {Rating} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import HomeApis from "./../../Api/HomeAPIs";
+import StorageManager from "./../../Api/StorageManager";
+import Loading from "./../../Components/Loading";
 const Home = ({route}) => {
   const location = route.params?.location || 'Đà Nẵng';
   const navigation = useNavigation();
+  const [listGarages,setListGarages] = useState([])
+  const [loading,setLoading] = useState(true)
   const listImage = ['https://i.ibb.co/NmBdF7f/Banner.png','https://i.ibb.co/CWRM5L3/41759a96bdac71f228bd.jpg']
   const listCategory = [
     {
@@ -50,6 +55,14 @@ const Home = ({route}) => {
     else if(type === 'CarWash')
     navigation.navigate('CarWash');
   }
+  useEffect(() => {
+    HomeApis.getAllGarages().then((res) => {
+      setListGarages(res.data)
+      setLoading(false)
+    }).catch((err) => {
+      setLoading(false)
+    })
+  },[])
   return (
     <ScrollView style={styles.container}
       stickyHeaderIndices={[2]}
@@ -74,7 +87,7 @@ const Home = ({route}) => {
       <>
       <View style={styles.search}>
         <TouchableOpacity style={[styles.inputSearch,{flex:1,marginRight:10}]}
-          onPress={() =>navigation.navigate('SearchGarage')}
+          onPress={() =>navigation.navigate('SearchGarage',{listGarages:listGarages})}
         >
           <Icon name="search" size={24} color="gray" />
           <Text style={styles.textSearch} numberOfLines={1}>Nhập tên garage hoặc dịch vụ</Text>
@@ -87,18 +100,19 @@ const Home = ({route}) => {
         </TouchableOpacity>
       </View>
       </>
+      {loading?<Loading/>:
       <View style={styles.listService}>
-        {[1, 2, 3, 4, 5, 6,7,8,9].map((item, index) => (
-          <TouchableOpacity style={styles.itemService} key={item}
-            onPress={() =>navigation.navigate('DetailGarage')}
+        {listGarages.map((item, index) => (
+          <TouchableOpacity style={styles.itemService} key={item.id}
+            onPress={() =>navigation.navigate('DetailGarage',{idGarage:item.id})}
           > 
             <Image
               style={styles.imageGarage}
               source={{
-                uri: 'https://i.ibb.co/CWRM5L3/41759a96bdac71f228bd.jpg',
+                uri:item.avatar,
               }}
             />
-            <Text style={styles.nameGarage}>JP Long</Text>
+            <Text style={styles.nameGarage}>{item.name}</Text>
             <View style={styles.evaluation}>
               <View style={styles.ratting}>
                  <Rating
@@ -108,26 +122,27 @@ const Home = ({route}) => {
                     readonly
                     style={{margin:0,padding:0}}
                   />
-                  <Text style={styles.countRating}>4.5</Text>
+                  <Text style={styles.countRating}>{item.avg_rating}</Text>
               </View>
               <View style={styles.comments}>
                 <Icon name="chatbox-ellipses" size={16} color="red" />
-                <Text style={styles.countRating}>10</Text>
+                <Text style={styles.countRating}>{item.review_count}</Text>
               </View>
               <View style={styles.imageReviews}>
                 <Icon name="camera" size={16} color="red" />
-                <Text style={styles.countRating}>0</Text>
+                <Text style={styles.countRating}>{item.review_images_count}</Text>
               </View>
             </View>
             <View style={styles.address}>
               <Icon name="location-outline" size={20} color="gray" />
               <Text style={styles.textAddress} numberOfLines={2}>
-                630 Nguyễn Hữu Thọ, Cẩm Lệ, Đà Nẵng 
+                {item.address} {item.district}
               </Text>
             </View>
           </TouchableOpacity>
         ))}
       </View>
+        }
     </ScrollView>
   );
 };

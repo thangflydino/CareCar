@@ -75,7 +75,8 @@ const garage = [
   }
 ]
 
-const SearchGarage = () => {
+const SearchGarage = ({route}) => {
+  const listGarages = route?.params?.listGarages
   const navigation = useNavigation();
   const [isGarage, setIsGarage] = useState(true);
   const [indexCarChoice, setIndexCarChoice] = useState(-1);
@@ -135,15 +136,15 @@ const SearchGarage = () => {
         <Icon name={'chevron-forward-outline'} size={34} color={'red'} />
       </View>
       <FlatList
-        data={garage}
+        data={listGarages}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <TouchableOpacity style={styles.itemGarage}
             onPress={() =>navigation.navigate('DetailGarage')}>
-            <Text style={styles.nameGarage}>{item.name}</Text>
+            <Text style={styles.nameGarage}>{item?.name}</Text>
             <View style={styles.evaluation}>
               <View style={styles.ratting}>
-                <Text style={styles.countRating}>{item.ratting}</Text>
+                <Text style={styles.countRating}>{item?.avg_rating}</Text>
                 <Rating
                   imageSize={16}
                   ratingCount={1}
@@ -153,7 +154,7 @@ const SearchGarage = () => {
                 />
               </View>
               <View style={styles.comments}>
-                <Text style={styles.countRating}>{item.comments}</Text>
+                <Text style={styles.countRating}>{item?.review_count}</Text>
                 <Icon name="chatbox-ellipses" size={16} color="red" />
               </View>
             </View>
@@ -256,5 +257,6 @@ const styles = StyleSheet.create({
   },
   comments: {
     alignItems: 'center',
+    marginLeft: 5,
   },
 });

@@ -1,12 +1,27 @@
-import { StyleSheet, Text, View,TouchableOpacity,TextInput } from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity,TextInput,Alert } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from "@react-navigation/native";
-const ChangePassword = () => {
+const ChangePassword = ({route}) => {
+  const dataUser = route?.params?.dataUser
   const navigation = useNavigation();
   const [passwordOld, setPasswordOld] = useState('')
   const [passwordNew, setPasswordNew] = useState('')
   const [rePasswordNew, setRePasswordNew] = useState('')
+  const handleOnSave =()=>{
+    console.log('dataUser',dataUser)
+    // const data ={
+    //   name: name
+    // }
+    if(passwordOld.length<6 || passwordOld.length<6 ||rePasswordNew||6) Alert.alert('Thông báo', 'Mật khẩu tối thiểu 6 ký tự')
+    else if(passwordNew!=rePasswordNew) Alert.alert('Thông báo', 'Mật khẩu nhập lại không chình xác')
+    // AuthAPIs.updateProfile(data,dataUser).then((res) => {
+    //    StorageManager.setDataUser({
+    //      ...dataUser, user:{...dataUser?.user,...res}
+    //    })
+    //    navigation.goBack()
+    // })
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,7 +53,9 @@ const ChangePassword = () => {
                   value={rePasswordNew}
                 />
       </View>
-      <TouchableOpacity style={styles.btnSave}>
+      <TouchableOpacity style={styles.btnSave}
+        onPress={() =>handleOnSave()}
+      >
           <Text style={styles.textSave}>Đặt lại</Text>
         </TouchableOpacity>
     </View>

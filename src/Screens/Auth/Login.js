@@ -13,6 +13,9 @@ import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {CheckBox} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
+import AuthAPIs from "./../../Api/AuthAPIs";
+import StorageManager from "./../../Api/StorageManager";
+
 const Login = () => {
   const navigation = useNavigation();
   const [number, setNumber] = useState('');
@@ -20,10 +23,21 @@ const Login = () => {
   const [isGarage, setIsGarage] = useState(false);
   function handleLogin() {
     if (!number) Alert.alert('Thông báo', 'Bạn chưa nhập số điện thoại');
-    else if (!password) Alert.alert('Thông báo', 'Bạn chưa nhập mật khẩu');
+    else if (number.length!=10) Alert.alert('Thông báo', 'Số diện thoại không dúng định dạng');
+    else if (!password) Alert.alert('Thông báo', 'Bạn chưa nhậpđ mật khẩu');
+    else if (password.length<6) Alert.alert('Thông báo', 'Trường mật khẩu phải có tối thiểu 6 ký tự');
     else {
-      ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
-      navigation.replace('MyTabs');
+      AuthAPIs.login(number,password).then((res)=>
+        {
+          ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
+          StorageManager.setDataUser(res)
+          navigation.replace('MyTabs');
+        }
+      ).catch((err)=>
+        {
+          Alert.alert('Thông báo', 'Số điện thoại hoặc mật khẩu không chính xác');
+        }
+      )
     }
   }
   return (
@@ -36,7 +50,7 @@ const Login = () => {
         <TouchableOpacity
           style={styles.header}
           onPress={() => {
-            navigation.goBack();
+            navigation.replace('MyTabs');
           }}>
           <Icon name="arrow-back-outline" size={34} color="#fff" />
         </TouchableOpacity>
