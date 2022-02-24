@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, Dimensions,PermissionsAndroid,TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from './Header';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView,{Marker,PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -31,45 +31,46 @@ const CallForHelp = () => {
       <Header />
       <View style={styles.body}>
         <MapView
-            style={styles.mapStyle}
-            initialRegion={{
-              latitude: 16.06613,
-              longitude: 108.2411,
-              latitudeDelta: 0.439158482,
-              longitudeDelta: 0.2272421121,
-            }}
-            // region={location}
-            onRegionChange={onRegionChange}
+          style={styles.mapStyle}
+          initialRegion={{
+            latitude: 16.06613,
+            longitude: 108.2411,
+            latitudeDelta: 0.439158482,
+            longitudeDelta: 0.2272421121,
+          }}
+          // region={location}
+          onRegionChange={onRegionChange}>
+          <Marker
+            coordinate={{latitude: 16.06613, longitude: 108.2411}}
+            // icon={{uri: 'https://keka-v2.herokuapp.com/img/default_user_banner.png'}}
+            // image={{uri: 'https://keka-v2.herokuapp.com/img/default_gara_banner.png'}}
+            title={'Nguyễn Hữu Thắng'}
+            description={'Đà Nẵng'}
           />
+        </MapView>
         <View style={styles.search}>
-          <TouchableOpacity style={styles.inputSearch}
-            onPress={() =>{}}
-          >
+          <TouchableOpacity style={styles.inputSearch} onPress={() => {}}>
             <Icon name="search" size={24} color="gray" />
             <Text style={styles.textSearch}>Nhập để tìm kiếm ...</Text>
           </TouchableOpacity>
         </View>
-         <View style={styles.footer}>
-            <View style={styles.phone}>
-              <Text style={styles.phoneText}>
-              0900000009
-              </Text>
-            </View>
-            <CheckBox
-                center
-                title="Xe có bảo hiểm"
-                checkedIcon="dot-circle-o"
-                uncheckedIcon="circle-o"
-                checked={isInsurance}
-                containerStyle={styles.checkboxContainer}
-                textStyle={styles.checkboxText}
-                onPress={() => setIsInsurance(!isInsurance)}
-              />
-            <TouchableOpacity style={styles.btnSendHelp}>
-              <Text style={styles.textHelp}>
-              Gửi yêu cầu cứu hộ
-              </Text>
-            </TouchableOpacity>
+        <View style={styles.footer}>
+          <View style={styles.phone}>
+            <Text style={styles.phoneText}>0900000009</Text>
+          </View>
+          <CheckBox
+            center
+            title="Xe có bảo hiểm"
+            checkedIcon="dot-circle-o"
+            uncheckedIcon="circle-o"
+            checked={isInsurance}
+            containerStyle={styles.checkboxContainer}
+            textStyle={styles.checkboxText}
+            onPress={() => setIsInsurance(!isInsurance)}
+          />
+          <TouchableOpacity style={styles.btnSendHelp}>
+            <Text style={styles.textHelp}>Gửi yêu cầu cứu hộ</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -84,7 +85,6 @@ const styles = StyleSheet.create({
   },
   body:{
     flex: 1,
-    backgroundColor: 'red'
   },
   mapStyle: {
     width: width,

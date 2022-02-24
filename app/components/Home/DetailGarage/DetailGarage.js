@@ -11,7 +11,7 @@ import Header from './Header';
 import Slider from './../Slider';
 import {Rating} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MapView from 'react-native-maps';
+import MapView,{Marker} from 'react-native-maps';
 import {useNavigation} from '@react-navigation/native';
 import Detail from './MyTabs/Detail/Detail';
 import Service from './MyTabs/Service/Service';
@@ -118,12 +118,20 @@ const DetailGarage = ({route}) => {
             initialRegion={{
               latitude: dataGarage?.latitude ||16.06613,
               longitude: dataGarage?.longitude ||108.2411,
-              latitudeDelta: 0.01,
+              latitudeDelta: 0.04,
               longitudeDelta: 0.001,
             }}
             // region={location}
             onRegionChange={onRegionChange}
-          />
+          >
+            <Marker
+              coordinate={{ latitude : dataGarage?.latitude , longitude : dataGarage?.longitude  }}
+              // icon={{uri: 'https://keka-v2.herokuapp.com/img/default_user_banner.png'}}
+              image={{uri: 'https://keka-v2.herokuapp.com/img/default_gara_banner.png'}}
+              title={dataGarage?.name}
+              description={dataGarage?.address}
+            />
+          </MapView>
           <View
             style={{
               position: 'absolute',

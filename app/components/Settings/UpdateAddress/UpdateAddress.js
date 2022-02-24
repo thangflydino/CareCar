@@ -4,17 +4,45 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Alert,
+  ToastAndroid
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import AuthAPIs from "./../../../controller/APIs/AuthAPIs";
+import {useDispatch,useSelector} from 'react-redux'
+import {setUser} from '../../../redux/userSlice'
+import StorageManager from "./../../../controller/StorageManager";
 const UpdateAddress = ({route}) => {
   const province = route?.params?.province;
   const district = route?.params?.district;
-  console.log('province', province);
-  console.log('district', district);
   const navigation = useNavigation();
-  const [detailedAddress, setDetailedAddress] = useState('');
+  const dispatch = useDispatch();
+  const dataUser = useSelector(state =>state.userSlice.data);
+  const [detailedAddress, setDetailedAddress] = useState(route?.params?.address??'');
+  const handleOnSave =() => {
+    const data ={
+      address: detailedAddress,
+      province: province?.name,
+      province_id:province?.id,
+      district: district?.name,
+      district_id:district?.id,
+    }
+    AuthAPIs.updateProfile(data,dataUser).then((res) => {
+       StorageManager.setDataUser({
+         ...dataUser, user:{...dataUser?.user,...res}
+       })
+        dispatch(setUser({
+         ...dataUser, user:{...dataUser?.user,...res}
+       }))
+       ToastAndroid.show('Cập nhật thành công', ToastAndroid.SHORT)
+       navigation.goBack()
+    }).catch((err) => {
+      Alert.alert('Thông báo', 'Lỗi')
+    })
+
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,7 +50,9 @@ const UpdateAddress = ({route}) => {
           <Icon name="ios-arrow-back" size={30} color="red" />
         </TouchableOpacity>
         <Text style={styles.textHeader}>Cập nhật địa chỉ</Text>
-        <TouchableOpacity style={styles.btnSave}>
+        <TouchableOpacity style={styles.btnSave}
+          onPress={() =>handleOnSave()}
+        >
           <Text style={styles.textSave}>Lưu</Text>
         </TouchableOpacity>
       </View>
@@ -33,7 +63,12 @@ const UpdateAddress = ({route}) => {
             <TextInput style={styles.input} value={province?.name} />
           </View>
         </TouchableOpacity >
-        <TouchableOpacity onPress={() => navigation.navigate('ChoiceDistrict',{province:province})}>
+        <TouchableOpacity onPress={() => {
+          if(!province?.name)
+            Alert.alert('Thông báo','Bạn chưa chọn Tỉnh/Thành Phố')
+          else
+          navigation.navigate('ChoiceDistrict',{province:province})
+        }}>
           <Text style={styles.title}>Quận/huyện</Text>
           <View pointerEvents="none">
             <TextInput style={styles.input} value={district?.name} />

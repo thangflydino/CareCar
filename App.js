@@ -5,7 +5,7 @@ import Login from "./app/components/authentication/Login";
 import RootNavigation from "./app/components/navigation/RootNavigation";
 import { Provider } from 'react-redux';
 import store from './app/redux/store';
-// LogBox.ignoreLogs(["EventEmitter.removeListener"]);
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 const App = () => {
   return (
     <Provider store={store}>

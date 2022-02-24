@@ -27,17 +27,17 @@ const Settings = () => {
   const info = [
     {
       name: 'Họ tên',
-      value: dataUser?.user?.name,
+      value: dataUser?.user?.name||'',
       type: 'name',
     },
     {
       name: 'Số điên thoại',
-      value: dataUser?.user?.phone,
+      value: dataUser?.user?.phone||'',
       type: 'phone',
     },
     {
       name: 'Địa chỉ',
-      value: dataUser?.user?.address,
+      value: `${dataUser?.user?.address} ${dataUser?.user?.district} ${dataUser?.user?.province}`,
       type: 'address',
     },
     {
@@ -53,7 +53,12 @@ const Settings = () => {
   ];
   const handleOnClick = type => {
     if (type === 'name') navigation.navigate('UpdateName',{name:dataUser?.user?.name});
-    if (type === 'address') navigation.navigate('UpdateAddress');
+    if (type === 'address') navigation.navigate('UpdateAddress',
+      {
+        province:{name:dataUser?.user?.province,id:dataUser?.user?.province_id},
+        district:{name:dataUser?.user?.district,id:dataUser?.user?.district_id},
+        address:dataUser?.user?.address
+      });
     if (type === 'password') navigation.navigate('ChangePassword',{dataUser:dataUser});
   };
   const handleOnSaveImage = (file) => {
@@ -67,7 +72,6 @@ const Settings = () => {
             navigation.goBack()
           }).catch((err) => {
               Alert.alert('Thông báo', 'Lỗi')
-              console.log('err',err)
           })
   }
   const openCamera = () => {
@@ -128,8 +132,8 @@ const Settings = () => {
                   disabled={item.type == 'phone' ? true : false}
                   onPress={() => handleOnClick(item.type)}>
                   <Text style={styles.textItemInfo}>{item.name}</Text>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={styles.textItemInfo}>{item.value}</Text>
+                  <View style={{flexDirection: 'row', alignItems: 'center',flex:1,justifyContent: 'flex-end'}}>
+                    <Text style={styles.textItemInfo} numberOfLines={1}>{item.value}</Text>
                     {item.type !== 'phone' && (
                       <Icon
                         name="chevron-forward-outline"
