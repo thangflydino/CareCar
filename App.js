@@ -1,15 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Login from "./src/Screens/Auth/Login";
-import Routes from "./src/Navigation/Routes";
+// import Routes from "./src/Navigation/Routes";
 import Geocoder from 'react-native-geocoding';
 import { LogBox } from "react-native";
-import Providers from "./src/Navigation/index";
+// import Providers from "./src/Navigation/index";
+import Login from "./app/components/authentication/Login";
+import RootNavigation from "./app/components/navigation/RootNavigation";
 
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 const App = () => {
   return (
-   <Providers/>
+  //  <Providers/>
+      <RootNavigation/>
   )
 }
 
