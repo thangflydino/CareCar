@@ -16,9 +16,12 @@ import {useNavigation} from '@react-navigation/native';
 import AuthAPIs from "./../../controller/APIs/AuthAPIs";
 import StorageManager from "./../../controller/StorageManager";
 import Constant from "./../../controller/Constant"
+import {useDispatch} from 'react-redux'
+import {setUser} from '../../redux/userSlice'
 const Login = () => {
   const navigation = useNavigation();
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
   const [password, setPassword] = useState('');
   const [isGarage, setIsGarage] = useState(false);
   function handleLogin() {
@@ -31,6 +34,8 @@ const Login = () => {
         {
           ToastAndroid.show('Đăng nhập thành công', ToastAndroid.SHORT);
           StorageManager.setDataUser(res)
+          dispatch(setUser(res))
+
           navigation.replace('MyTabs');
         }
       ).catch((err)=>

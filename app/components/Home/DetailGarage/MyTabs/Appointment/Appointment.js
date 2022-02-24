@@ -23,7 +23,7 @@ LocaleConfig.locales['fr'] = {
   today: 'Hôm nay',
 };
 LocaleConfig.defaultLocale = 'fr';
-const Appointment = () => {
+const Appointment = ({dataGarage}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -48,7 +48,7 @@ const Appointment = () => {
         }}
         onDayPress={day => {
           navigation.navigate('MakeAnAppointment', {
-                  nameGarage: 'JP Long',
+                  nameGarage: dataGarage.name,
                   date: day.dateString
                 })
         }}

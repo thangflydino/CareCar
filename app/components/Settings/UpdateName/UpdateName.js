@@ -4,14 +4,17 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from "@react-navigation/native";
 import AuthAPIs from "./../../../controller/APIs/AuthAPIs";
 import StorageManager from "./../../../controller/StorageManager";
+import {useDispatch} from 'react-redux'
+import {setUser} from '../../../redux/userSlice'
 const UpdateName = ({route}) => {
   const [name, setName] = useState(route?.params.name||'')
   const [dataUser, setDataUser] = useState({})
+  const dispatch = useDispatch()
   const navigation = useNavigation()
   useEffect(() => {
-    StorageManager.getDataUser().then((dataUser) => {
-      setDataUser(dataUser)
-      console.log('dataUser',dataUser)
+    StorageManager.getDataUser().then((res) => {
+      setDataUser(res)
+      console.log('dataUser',res)
     })
   },[])
   const handleOnSave =() => {
@@ -22,6 +25,9 @@ const UpdateName = ({route}) => {
        StorageManager.setDataUser({
          ...dataUser, user:{...dataUser?.user,...res}
        })
+        dispatch(setUser({
+         ...dataUser, user:{...dataUser?.user,...res}
+       }))
        ToastAndroid.show('Cập nhật thành công', ToastAndroid.SHORT)
        navigation.goBack()
     })

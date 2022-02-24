@@ -30,11 +30,11 @@ const Register = () => {
       Alert.alert('Thông báo','Mật khẩu xác nhận không chính xác')
     else 
         {
-          navigation.push('ConfirmPhoneNumber')
+          // navigation.push('ConfirmPhoneNumber')
           AuthAPIs.register(number,password,rePassword,name)
           .then(res => {
               ToastAndroid.show('Đăng ký thành công', ToastAndroid.SHORT)
-              navigation.push('MyTabs')
+              navigation.navigate('Login')
           }).catch((err)=>
              {
                 Alert.alert('Thông báo', 'Số điện thoại đã được đăng ký')

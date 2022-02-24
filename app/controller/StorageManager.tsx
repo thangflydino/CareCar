@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default class StorageManager {
-
-
+  
   static async getDataUser() {
         try {
         const jsonValue = await AsyncStorage.getItem('dataUser')

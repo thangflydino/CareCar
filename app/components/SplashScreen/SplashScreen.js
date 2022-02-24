@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
-import imageS from "./../../Assets/images/Splashscreen.jpg";
+import imageS from "../../assets/images/img_splashscreen.jpg";
 
 const SplashScreen = () => {
   return (

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -27,16 +27,30 @@ import CarWash from "./../Home/CarWash/CarWash";
 import ChoiceProvince from "./../Settings/UpdateAddress/ChoiceProvince/ChoiceProvince";
 import ChoiceDistrict from "./../Settings/UpdateAddress/ChoiceDistrict/ChoiceDistrict";
 import DataSearch from "./../Home/SearchGarage/DataSearch";
+import SplashScreen from "./../SplashScreen/SplashScreen";
 const Stack = createNativeStackNavigator();
-
+import {useDispatch} from 'react-redux'
+import {setUser} from '../../redux/userSlice'
+import StorageManager from "./../../controller/StorageManager";
 const RootNavigation = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    StorageManager.getDataUser().then((res) => {
+      dispatch(setUser(res))
+    })
+    setTimeout(() => {
+        setIsLoading(false)
+    },1000)
+  }, [])
   return (
+    isLoading?<SplashScreen/>:
     <NavigationContainer>
         <Stack.Navigator
             screenOptions={{
               headerShown: false,
             }}
-            initialRouteName="Login"
+            initialRouteName="TabBarNavigation"
           >
             <Stack.Screen name={Constant.screenName.TabBar} component={TabBarNavigation} />
             <Stack.Screen name={Constant.screenName.Login} component={Login} />
@@ -64,7 +78,6 @@ const RootNavigation = () => {
            
           </Stack.Navigator>
     </NavigationContainer>
-    
   )
 }
 

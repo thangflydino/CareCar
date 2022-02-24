@@ -180,7 +180,7 @@ const DetailGarage = ({route}) => {
         <View style={styles.content}>
           {isFocusTab == 0 && <Detail description={dataGarage?.description}/>}
           {isFocusTab == 1 && <Service services={dataGarage?.services}/>}
-          {isFocusTab == 2 && <Appointment />}
+          {isFocusTab == 2 && <Appointment dataGarage={dataGarage}/>}
           {isFocusTab == 3 && <Evaluate dataGarage={dataGarage}/>}
         </View>
       </ScrollView>}

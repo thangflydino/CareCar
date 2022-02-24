@@ -18,9 +18,11 @@ import { Dimensions } from "react-native";
 import StorageManager from "./../../controller/StorageManager";
 import FormData from 'form-data'
 import AuthAPIs from "./../../controller/APIs/AuthAPIs";
+import { useDispatch,useSelector } from "react-redux";
 const Settings = () => {
   const navigation = useNavigation();
-  const [dataUser,setDataUser] = useState({})
+  const dispatch = useDispatch();
+  const dataUser = useSelector(state =>state.userSlice.data);
   const [modalVisible, setModalVisible] = useState(false);
   const info = [
     {
@@ -95,11 +97,8 @@ const Settings = () => {
       .catch(error => {});
   };
   useEffect(() => {
-    StorageManager.getDataUser().then((res) => {
-      if(!res?.user)
-        navigation.navigate('Login')
-      setDataUser(res);
-    })
+    if(!dataUser.user)
+      navigation.navigate('Login')
   },[])
   if(!dataUser?.user)
     return null
