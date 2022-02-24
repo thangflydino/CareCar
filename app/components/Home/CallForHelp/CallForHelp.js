@@ -1,20 +1,32 @@
-import {StyleSheet, Text, View, Dimensions,PermissionsAndroid,TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  PermissionsAndroid,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from './Header';
-import MapView,{Marker,PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {CheckBox} from 'react-native-elements';
 const CallForHelp = () => {
-    const [isInsurance,setIsInsurance] =useState(false)
+  const [isInsurance, setIsInsurance] = useState(false);
+  const [number, setNumber] = useState('')
   const [location, setLocation] = useState({
-    "latitude": 16.086846191804625, "latitudeDelta": 0.009666684534803238, "longitude": 108.21679534390569, "longitudeDelta": 0.005002655088887309
+    latitude: 16.086846191804625,
+    latitudeDelta: 0.009666684534803238,
+    longitude: 108.21679534390569,
+    longitudeDelta: 0.005002655088887309,
   });
   const onRegionChange = region => {
     setLocation(region);
   };
-  useEffect(()=> {
+  useEffect(() => {
     // Geolocation.getCurrentPosition(info => {
     //               console.log(info.coords)
     //               Geocoder.init("AIzaSyA76Lbj_e81ko4jC77-4L4fLSwsF2qmmUU"); // use a valid API key
@@ -25,7 +37,7 @@ const CallForHelp = () => {
     //               })
     //               .catch(error => console.warn(error));
     //             });
-  },[])
+  }, []);
   return (
     <View style={styles.container}>
       <Header />
@@ -56,7 +68,19 @@ const CallForHelp = () => {
         </View>
         <View style={styles.footer}>
           <View style={styles.phone}>
-            <Text style={styles.phoneText}>0900000009</Text>
+            {/* <Text style={styles.phoneText}>0900000009</Text> */}
+            <TextInput
+                style={styles.inputPhone}
+                 onChangeText={setNumber}
+                  value={number}
+                  placeholder="Nhập số diện thoại"
+                  keyboardType="numeric"
+                />
+            {number.length >0&&<TouchableOpacity style={styles.removePhone}
+              onPress={() =>setNumber('')}
+            >
+              <Icon name="close-circle" size={20} color="gray" />
+            </TouchableOpacity>}
           </View>
           <CheckBox
             center
@@ -83,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  body:{
+  body: {
     flex: 1,
   },
   mapStyle: {
@@ -92,9 +116,9 @@ const styles = StyleSheet.create({
   },
   search: {
     position: 'absolute',
-    top:0,
-    left:0,
-    right:0,
+    top: 0,
+    left: 0,
+    right: 0,
     padding: 10,
     backgroundColor: 'transparent',
   },
@@ -108,48 +132,60 @@ const styles = StyleSheet.create({
   textSearch: {
     paddingHorizontal: 5,
   },
-  footer:{
+  footer: {
     position: 'absolute',
-    bottom:20,
-    left:0,
-    right:0,
+    bottom: 20,
+    left: 0,
+    right: 0,
     backgroundColor: '#fff',
     paddingHorizontal: 12,
     marginHorizontal: 40,
     borderRadius: 10,
   },
-  phone:{
-    padding:10,
+  phone: {
+    padding: 10,
+    marginTop:4,
     borderBottomWidth: 2,
-    borderBottomColor: '#999'
+    borderBottomColor: '#999',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
-  phoneText:{
-    color:'black',
-    fontSize:18,
+  phoneText: {
+    color: 'black',
+    fontSize: 18,
     textAlign: 'center',
   },
-btnSendHelp:{
-  marginVertical:10,
-  alignSelf:'center',
-  padding:4,
-  paddingHorizontal:10,
-  borderRadius:4,
-  borderWidth:1,
-  borderColor: 'red'
-},
-textHelp:{
-  fontSize:16,
-  color:'red',
-  textAlign: 'center',
-},
-checkboxContainer: {
+  btnSendHelp: {
+    marginVertical: 10,
+    alignSelf: 'center',
+    padding: 4,
+    paddingHorizontal: 10,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+  textHelp: {
+    fontSize: 16,
+    color: 'red',
+    textAlign: 'center',
+  },
+  checkboxContainer: {
     backgroundColor: 'white',
     borderWidth: 0,
     padding: 0,
-    marginVertical:20,
+    marginVertical: 20,
   },
-  checkboxText:{
-    fontSize:16,
-    fontWeight:'600'
+  checkboxText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  inputPhone:{
+    padding:0,
+    paddingHorizontal:10,
+    fontSize: 16,
+  },
+  removePhone:{
+
   }
 });

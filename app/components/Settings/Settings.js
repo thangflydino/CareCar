@@ -100,10 +100,16 @@ const Settings = () => {
       })
       .catch(error => {});
   };
+  // useEffect(() => {
+    
+  // },[])
   useEffect(() => {
-    if(!dataUser.user)
-      navigation.navigate('Login')
-  },[])
+    const unsubscribe = navigation.addListener('focus', () => {
+      if(!dataUser?.user)
+        navigation.navigate('Login')
+    });
+    return unsubscribe;
+  }, [navigation]);
   if(!dataUser?.user)
     return null
   return (
