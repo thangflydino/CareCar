@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View,TouchableOpacity,Pressable } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Modal from 'react-native-modal';
-import Nodata from "./../../../../components/Nodata";
+import Nodata from "./../../../../Components/Nodata";
+
 const Service = ({services}) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [contentModal,setContentModal] = useState({})

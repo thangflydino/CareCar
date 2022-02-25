@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import { Dimensions } from "react-native";
 import CommonAPIs from "./../../../controller/APIs/CommonAPIs";
-import Loading from "./../../components/Loading";
-import Nodata from "./../../components/Nodata";
+import Loading from "./../../Components/Loading";
+import Nodata from "./../../Components/Nodata";
 
 const DataSearch = ({route}) => {
   const valueSearch = route?.params?.valueSearch;
@@ -22,7 +22,6 @@ const DataSearch = ({route}) => {
   const [loading, setLoading] = useState(true);
   const [listDataGarageSearch, setListDataGarageSearch] = useState([]);
   useEffect(() => {
-    
     CommonAPIs.searchGarage(valueSearch).then(res => {
       setLoading(false)
       setListDataGarageSearch(res.data);
@@ -30,7 +29,6 @@ const DataSearch = ({route}) => {
        setLoading(false)
     })
   }, [valueSearch]);
-  console.log('listDataGarageSearch',listDataGarageSearch)
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -99,13 +97,14 @@ const DataSearch = ({route}) => {
 };
 
 export default DataSearch;
+
 const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  //header:
   header: {
     padding: 10,
     flexDirection: 'row',

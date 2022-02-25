@@ -14,6 +14,7 @@ import AuthAPIs from "./../../../controller/APIs/AuthAPIs";
 import {useDispatch,useSelector} from 'react-redux'
 import {setUser} from '../../../redux/userSlice'
 import StorageManager from "./../../../controller/StorageManager";
+
 const UpdateAddress = ({route}) => {
   const province = route?.params?.province;
   const district = route?.params?.district;

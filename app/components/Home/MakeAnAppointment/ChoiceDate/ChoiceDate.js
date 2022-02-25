@@ -32,7 +32,6 @@ const ChoiceDate = ({route}) => {
     <View style={styles.container}>
       <Header />
       <Calendar
-        // Collection of dates that have to be marked. Default = {}
         markedDates={{
           '2022-02-18': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
           '2022-02-19': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},

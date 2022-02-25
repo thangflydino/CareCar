@@ -3,6 +3,7 @@ import React from 'react'
 import Header from './Header'
 import { Dimensions } from "react-native";
 import Constant from "./../../../controller/Constant";
+
 const CarWash = () => {
   return (
     <View style={styles.container}>

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { LogBox } from "react-native";
-import Login from "./app/components/authentication/Login";
-import RootNavigation from "./app/components/navigation/RootNavigation";
+import RootNavigation from "./app/components/Navigation/RootNavigation";
+RootNavigation
 import { Provider } from 'react-redux';
 import store from './app/redux/store';
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);

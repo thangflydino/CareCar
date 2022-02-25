@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View,ScrollView } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import React from 'react';
 import {LocaleConfig} from 'react-native-calendars';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import {useNavigation} from '@react-navigation/native';
@@ -23,70 +23,94 @@ LocaleConfig.locales['fr'] = {
   today: 'Hôm nay',
 };
 LocaleConfig.defaultLocale = 'fr';
+
 const Appointment = ({dataGarage}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bạn có thể chọn ngày để đặt lịch hẹn với garage</Text>
+      <Text style={styles.title}>
+        Bạn có thể chọn ngày để đặt lịch hẹn với garage
+      </Text>
       <View style={styles.tutorial}>
         <View style={styles.tutorialItem}>
-          <View style={styles.tutorialItemIcon}/>
+          <View style={styles.tutorialItemIcon} />
           <Text style={styles.tutorialItemText}>Có thể đặt</Text>
         </View>
         <View style={styles.tutorialItem}>
-          <View style={[styles.tutorialItemIcon,{backgroundColor:'#dbdbdb'}]}/>
+          <View
+            style={[styles.tutorialItemIcon, {backgroundColor: '#dbdbdb'}]}
+          />
           <Text style={styles.tutorialItemText}>Hết chỗ</Text>
         </View>
       </View>
       <Calendar
-        // Collection of dates that have to be marked. Default = {}
         markedDates={{
-          '2022-02-18': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
-          '2022-02-19': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
-          '2022-02-20': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
-          '2022-02-21': {selected: true, marked: true, selectedColor: '#d3f1f9',dotColor: 'transparent'},
+          '2022-02-18': {
+            selected: true,
+            marked: true,
+            selectedColor: '#d3f1f9',
+            dotColor: 'transparent',
+          },
+          '2022-02-19': {
+            selected: true,
+            marked: true,
+            selectedColor: '#d3f1f9',
+            dotColor: 'transparent',
+          },
+          '2022-02-20': {
+            selected: true,
+            marked: true,
+            selectedColor: '#d3f1f9',
+            dotColor: 'transparent',
+          },
+          '2022-02-21': {
+            selected: true,
+            marked: true,
+            selectedColor: '#d3f1f9',
+            dotColor: 'transparent',
+          },
         }}
         onDayPress={day => {
           navigation.navigate('MakeAnAppointment', {
-                  nameGarage: dataGarage.name,
-                  date: day.dateString
-                })
+            nameGarage: dataGarage.name,
+            date: day.dateString,
+          });
         }}
       />
     </View>
-  )
-}
+  );
+};
 
-export default Appointment
+export default Appointment;
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-  title:{
-    padding:10,
-    fontSize:14,
+  title: {
+    padding: 10,
+    fontSize: 14,
     color: 'black',
     textAlign: 'center',
   },
-  tutorial:{
+  tutorial: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-  tutorialItem:{
+  tutorialItem: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  tutorialItemIcon:{
-    width:30,
-    height:30,
-    backgroundColor:'#d9f7ff',
-    borderRadius:30,
+  tutorialItemIcon: {
+    width: 30,
+    height: 30,
+    backgroundColor: '#d9f7ff',
+    borderRadius: 30,
   },
-  tutorialItemText:{
-    fontSize:16,
-    marginLeft:5,
-    color:'black',
-  }
-})
+  tutorialItemText: {
+    fontSize: 16,
+    marginLeft: 5,
+    color: 'black',
+  },
+});

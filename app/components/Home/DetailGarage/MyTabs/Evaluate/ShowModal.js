@@ -10,6 +10,7 @@ import {
 import React from 'react'
 import Modal from 'react-native-modal';
 import {Rating} from 'react-native-elements';
+
 const ShowModal = ({modalVisible,setModalVisible,dataModal}) => {
   return (
     <Modal transparent={true} visible={modalVisible} style={{ margin: 0 }}>

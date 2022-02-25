@@ -2,6 +2,7 @@ import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
 import React,{useState, useEffect} from 'react'
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+
 const Header = () => {
   const [valueSearch, setValueSearch] = useState('');
   const navigation = useNavigation();

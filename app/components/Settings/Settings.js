@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
   Pressable,
-  Alert
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from './Header';
@@ -14,25 +14,26 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
-import { Dimensions } from "react-native";
-import StorageManager from "./../../controller/StorageManager";
-import FormData from 'form-data'
-import AuthAPIs from "./../../controller/APIs/AuthAPIs";
-import { useDispatch,useSelector } from "react-redux";
+import {Dimensions} from 'react-native';
+import StorageManager from './../../controller/StorageManager';
+import FormData from 'form-data';
+import AuthAPIs from './../../controller/APIs/AuthAPIs';
+import {useDispatch, useSelector} from 'react-redux';
+
 const Settings = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const dataUser = useSelector(state =>state.userSlice.data);
+  const dataUser = useSelector(state => state.userSlice.data);
   const [modalVisible, setModalVisible] = useState(false);
   const info = [
     {
       name: 'Họ tên',
-      value: dataUser?.user?.name||'',
+      value: dataUser?.user?.name || '',
       type: 'name',
     },
     {
       name: 'Số điên thoại',
-      value: dataUser?.user?.phone||'',
+      value: dataUser?.user?.phone || '',
       type: 'phone',
     },
     {
@@ -52,36 +53,46 @@ const Settings = () => {
     },
   ];
   const handleOnClick = type => {
-    if (type === 'name') navigation.navigate('UpdateName',{name:dataUser?.user?.name});
-    if (type === 'address') navigation.navigate('UpdateAddress',
-      {
-        province:{name:dataUser?.user?.province,id:dataUser?.user?.province_id},
-        district:{name:dataUser?.user?.district,id:dataUser?.user?.district_id},
-        address:dataUser?.user?.address
+    if (type === 'name')
+      navigation.navigate('UpdateName', {name: dataUser?.user?.name});
+    if (type === 'address')
+      navigation.navigate('UpdateAddress', {
+        province: {
+          name: dataUser?.user?.province,
+          id: dataUser?.user?.province_id,
+        },
+        district: {
+          name: dataUser?.user?.district,
+          id: dataUser?.user?.district_id,
+        },
+        address: dataUser?.user?.address,
       });
-    if (type === 'password') navigation.navigate('ChangePassword',{dataUser:dataUser});
+    if (type === 'password')
+      navigation.navigate('ChangePassword', {dataUser: dataUser});
   };
-  const handleOnSaveImage = (file) => {
+  const handleOnSaveImage = file => {
     var img = new FormData();
-    img.append('file',file);
-    const data ={
-      avatar:img
-    }
-     AuthAPIs.updateAvatarProfile(data,dataUser).then((res) => {
-            Alert.alert('Thông báo', 'Cập nhật avatar thành công')
-            navigation.goBack()
-          }).catch((err) => {
-              Alert.alert('Thông báo', 'Lỗi')
-          })
-  }
+    img.append('file', file);
+    const data = {
+      avatar: img,
+    };
+    AuthAPIs.updateAvatarProfile(data, dataUser)
+      .then(res => {
+        Alert.alert('Thông báo', 'Cập nhật avatar thành công');
+        navigation.goBack();
+      })
+      .catch(err => {
+        Alert.alert('Thông báo', 'Lỗi');
+      });
+  };
   const openCamera = () => {
     ImagePicker.openCamera({mediaType: 'photo'})
       .then(image => {
-        let file ={
-          uri:image.path,
-          type:image.mime,
-          name :image.path.substring(image.path.lastIndexOf('/') + 1)
-        }
+        let file = {
+          uri: image.path,
+          type: image.mime,
+          name: image.path.substring(image.path.lastIndexOf('/') + 1),
+        };
         handleOnSaveImage(file);
         setModalVisible(false);
       })
@@ -90,28 +101,23 @@ const Settings = () => {
   const openLibrary = () => {
     ImagePicker.openPicker({mediaType: 'photo'})
       .then(image => {
-        let file ={
-          uri:image.path,
-          type:image.mime,
-          name :image.path.substring(image.path.lastIndexOf('/') + 1)
-        }
+        let file = {
+          uri: image.path,
+          type: image.mime,
+          name: image.path.substring(image.path.lastIndexOf('/') + 1),
+        };
         handleOnSaveImage(file);
         setModalVisible(false);
       })
       .catch(error => {});
   };
-  // useEffect(() => {
-    
-  // },[])
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      if(!dataUser?.user)
-        navigation.navigate('Login')
+      if (!dataUser?.user) navigation.navigate('Login');
     });
     return unsubscribe;
   }, [navigation]);
-  if(!dataUser?.user)
-    return null
+  if (!dataUser?.user) return null;
   return (
     <View style={styles.container}>
       <Header />
@@ -119,10 +125,7 @@ const Settings = () => {
         <TouchableOpacity
           style={[styles.avatar, {marginVertical: 20}]}
           onPress={() => setModalVisible(true)}>
-          <Image
-            source={{uri: dataUser?.user?.avatar}}
-            style={styles.avatar}
-          />
+          <Image source={{uri: dataUser?.user?.avatar}} style={styles.avatar} />
           <Text style={styles.textUpdateAvatar}>Sửa</Text>
         </TouchableOpacity>
         <View style={styles.info}>
@@ -138,8 +141,16 @@ const Settings = () => {
                   disabled={item.type == 'phone' ? true : false}
                   onPress={() => handleOnClick(item.type)}>
                   <Text style={styles.textItemInfo}>{item.name}</Text>
-                  <View style={{flexDirection: 'row', alignItems: 'center',flex:1,justifyContent: 'flex-end'}}>
-                    <Text style={styles.textItemInfo} numberOfLines={1}>{item.value}</Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      flex: 1,
+                      justifyContent: 'flex-end',
+                    }}>
+                    <Text style={styles.textItemInfo} numberOfLines={1}>
+                      {item.value}
+                    </Text>
                     {item.type !== 'phone' && (
                       <Icon
                         name="chevron-forward-outline"
@@ -180,8 +191,8 @@ const Settings = () => {
         <TouchableOpacity
           style={styles.logout}
           onPress={() => {
-            StorageManager.logoutUser()
-            navigation.navigate('Login')
+            StorageManager.logoutUser();
+            navigation.navigate('Login');
           }}>
           <Text style={styles.textLogout}>Đăng xuất</Text>
         </TouchableOpacity>
@@ -191,7 +202,7 @@ const Settings = () => {
         animationType="slide"
         visible={modalVisible}
         onBackdropPress={() => setModalVisible(false)}
-        style={{margin: 0,justifyContent: 'flex-end'}}>
+        style={{margin: 0, justifyContent: 'flex-end'}}>
         <View style={styles.choiceImage}>
           <Text style={styles.textTitleChoiceImage}>Chọn ảnh</Text>
           <TouchableOpacity

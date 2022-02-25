@@ -18,7 +18,7 @@ import Service from './MyTabs/Service/Service';
 import Appointment from './MyTabs/Appointment/Appointment';
 import Evaluate from './MyTabs/Evaluate/Evaluate';
 import CommonAPIs from "./../../../controller/APIs/CommonAPIs";
-import Loading from "./../../components/Loading";
+import Loading from "./../../Components/Loading";
 
 const tabs = [
   {
@@ -48,7 +48,6 @@ const DetailGarage = ({route}) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [dataGarage, setDataGarage] = useState({});
-
   const listImage = [
     'https://carecar-prod.s3.ap-southeast-1.amazonaws.com/garages/xL9YSeLwxfcNygaawDOG5CgM6AKZHeAAN17ruW8m.jpg',
     'https://carecar-prod.s3.ap-southeast-1.amazonaws.com/garages/0if7jyVVAdy79p1r502UMJx6qxXXKUtnNNxkG9ba.jpg',
@@ -61,7 +60,6 @@ const DetailGarage = ({route}) => {
   });
   const [isFocusTab, setIsFocusTab] = useState(3);
   useEffect(() => {
-    
     CommonAPIs.getGarageByID(idGarage)
       .then(res => {
         setDataGarage(res);
@@ -74,7 +72,6 @@ const DetailGarage = ({route}) => {
   const onRegionChange = region => {
     setLocation(region);
   };
-  // if(!idGarage) return null;
   return (
     <View style={styles.container}>
       <Header name={dataGarage.name}/>
@@ -121,12 +118,10 @@ const DetailGarage = ({route}) => {
               latitudeDelta: 0.04,
               longitudeDelta: 0.001,
             }}
-            // region={location}
             onRegionChange={onRegionChange}
           >
             <Marker
               coordinate={{ latitude : dataGarage?.latitude , longitude : dataGarage?.longitude  }}
-              // icon={{uri: 'https://keka-v2.herokuapp.com/img/default_user_banner.png'}}
               image={{uri: 'https://keka-v2.herokuapp.com/img/default_gara_banner.png'}}
               title={dataGarage?.name}
               description={dataGarage?.address}

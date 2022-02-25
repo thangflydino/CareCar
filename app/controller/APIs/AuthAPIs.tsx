@@ -15,7 +15,6 @@ export default class AuthAPIs {
   };
 
   static async login(phone: string, password: string) {
-    console.log('a');
     try {
       const data = {
         phone,
@@ -51,7 +50,7 @@ export default class AuthAPIs {
       return Promise.reject(error);
     }
   }
-
+  
   static async updateProfile(data, dataUser) {
     const data2 = {
       ...data,
@@ -62,14 +61,12 @@ export default class AuthAPIs {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     };
-    console.log('data2', data2, 'dataUser', dataUser, 'headers', headers);
     try {
       let response = await axios.post(AuthAPIs.endpoints.updateProfile, data2, {
         headers: headers,
       });
       return Promise.resolve(response.data);
     } catch (error) {
-      console.log('eaaa', error);
       return Promise.reject(error);
     }
   }

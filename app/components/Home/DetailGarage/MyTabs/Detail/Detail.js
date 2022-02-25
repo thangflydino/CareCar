@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View,ScrollView } from 'react-native'
 import React from 'react'
-import Nodata from "./../../../../components/Nodata";
+import Nodata from "./../../../../Components/Nodata";
 
 const Detail = ({description}) => {
   return (

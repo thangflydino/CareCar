@@ -3,11 +3,11 @@ import React,{useState, useEffect} from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from "./../authentication/Login";
-import Register from "./../authentication/Register";
+import Login from "./../Authentication/Login";
+import Register from "./../Authentication/Register";
 import Constant from '../../controller/Constant';
-import ConfirmPhoneNumber from "./../authentication/ConfirmPhoneNumber";
-import ForgotPassword from "./../authentication/ForgotPassword";
+import ConfirmPhoneNumber from "./../Authentication/ConfirmPhoneNumber";
+import ForgotPassword from "./../Authentication/ForgotPassword";
 import TabBarNavigation from "./TabBarNavigation";
 import SearchGarage from "./../Home/SearchGarage/SearchGarage";
 import DetailGarage from "./../Home/DetailGarage/DetailGarage";
@@ -75,7 +75,6 @@ const RootNavigation = () => {
             <Stack.Screen name={Constant.screenName.ChoiceProvince} component={ChoiceProvince} />
             <Stack.Screen name={Constant.screenName.ChoiceDistrict} component={ChoiceDistrict} />
             <Stack.Screen name={Constant.screenName.DataSearch} component={DataSearch} /> 
-           
           </Stack.Navigator>
     </NavigationContainer>
   )

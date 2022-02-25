@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Rating} from 'react-native-elements';
 import { Pressable } from "react-native";
 import {useNavigation} from '@react-navigation/native'
+
 const DetailVoucher = () => {
   const navigation = useNavigation();
   return (

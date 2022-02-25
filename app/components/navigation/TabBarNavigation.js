@@ -8,8 +8,8 @@ import Chat from "./../Chat/Chat";
 import Settings from "./../Settings/Settings";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
-const TabBarNavigation = () =>{
 
+const TabBarNavigation = () =>{
   return (
     <Tab.Navigator
     initialRouteName="Home"

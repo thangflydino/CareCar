@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Dimensions,Image } from 'react-native'
 import React from 'react'
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
+
 const Slider = ({listImage}) => {
   return (
     <View style={styles.slider}>

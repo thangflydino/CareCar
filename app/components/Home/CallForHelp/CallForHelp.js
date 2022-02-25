@@ -14,6 +14,7 @@ import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {CheckBox} from 'react-native-elements';
+
 const CallForHelp = () => {
   const [isInsurance, setIsInsurance] = useState(false);
   const [number, setNumber] = useState('')
@@ -68,7 +69,6 @@ const CallForHelp = () => {
         </View>
         <View style={styles.footer}>
           <View style={styles.phone}>
-            {/* <Text style={styles.phoneText}>0900000009</Text> */}
             <TextInput
                 style={styles.inputPhone}
                  onChangeText={setNumber}

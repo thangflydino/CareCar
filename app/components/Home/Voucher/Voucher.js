@@ -14,6 +14,7 @@ import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 const Voucher = ({route}) => {
   const navigation = useNavigation();
   const location = route.params?.location || 'Đà Nẵng';

@@ -4,7 +4,7 @@ import Header from './Header'
 import { Dimensions } from "react-native";
 import {useNavigation}from '@react-navigation/native'
 import CommonAPIs from "./../../../../controller/APIs/CommonAPIs";
-import Loading from "./../../../components/Loading";
+import Loading from "./../../../Components/Loading";
 
 const ChoiceDistrict = ({route}) => {
   const province = route?.params?.province; 

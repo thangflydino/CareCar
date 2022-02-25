@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {
   GiftedChat,
   Bubble,
@@ -7,10 +13,10 @@ import {
   Composer,
   Actions,
 } from 'react-native-gifted-chat';
-import { Avatar } from 'react-native-elements';
-import React, { useState, useCallback, useEffect } from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import Header from './Header'
+import {Avatar} from 'react-native-elements';
+import React, {useState, useCallback, useEffect} from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Header from './Header';
 const Message = () => {
   const [messages, setMessages] = useState([]);
   useEffect(() => {
@@ -25,11 +31,13 @@ const Message = () => {
           avatar: 'https://placeimg.com/140/140/any',
         },
       },
-    ])
-  }, [])
+    ]);
+  }, []);
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [])
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, messages),
+    );
+  }, []);
   const renderSend = props => {
     return (
       <Send {...props}>
@@ -44,38 +52,34 @@ const Message = () => {
       <Composer
         {...props}
         textInputStyle={styles.composer}
-        placeholder="Nhập tin nhắn..."
-        //  onTextChanged={(text) => setText(text)}
-        // text={text}
-        // multiline={true}
-      ></Composer>
+        placeholder="Nhập tin nhắn..."></Composer>
     );
   };
   const renderActions = props => {
     return (
       <>
-      <Actions
-        {...props}
-        icon={() => (
-          <View style={{marginTop: -2,marginRight:-6 ,padding:0}}>
-            <Icon name="attach" size={26} color="red" />
-          </View>
-        )}
-      />
-      <Actions
-        {...props}
-        options={{
-          ['Chụp ảnh']: () => {},
-          ['Thư viện']: () => {},
-          ['Huỷ']: () => {},
-        }}
-        onSend={args => console.log('args')}
-        icon={() => (
-          <View style={{marginTop: -2,marginHorizontal:-6}}>
-            <Icon name="image" size={26} color="red" />
-          </View>
-        )}
-      />
+        <Actions
+          {...props}
+          icon={() => (
+            <View style={{marginTop: -2, marginRight: -6, padding: 0}}>
+              <Icon name="attach" size={26} color="red" />
+            </View>
+          )}
+        />
+        <Actions
+          {...props}
+          options={{
+            ['Chụp ảnh']: () => {},
+            ['Thư viện']: () => {},
+            ['Huỷ']: () => {},
+          }}
+          onSend={args => console.log('args')}
+          icon={() => (
+            <View style={{marginTop: -2, marginHorizontal: -6}}>
+              <Icon name="image" size={26} color="red" />
+            </View>
+          )}
+        />
       </>
     );
   };
@@ -86,25 +90,25 @@ const Message = () => {
         messages={messages}
         onSend={messages => onSend(messages)}
         renderSend={renderSend} //tùy chỉnh cái nút send
-         renderActions={renderActions} //Nút hành động tùy chỉnh ở bên trái của trình soạn tin nhắn
-         renderComposer={renderComposer} // Trình soạn tin nhắn đầu vào văn bản tùy chỉnh
+        renderActions={renderActions} //Nút hành động tùy chỉnh ở bên trái của trình soạn tin nhắn
+        renderComposer={renderComposer} // Trình soạn tin nhắn đầu vào văn bản tùy chỉnh
         user={{
           _id: 1,
         }}
       />
     </View>
-  )
-}
+  );
+};
 
-export default Message
+export default Message;
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
-    backgroundColor:'#fff'
+    backgroundColor: '#fff',
   },
-  body:{
-    flex:1,
+  body: {
+    flex: 1,
   },
   composer: {
     backgroundColor: 'white',
@@ -114,4 +118,4 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginLeft: 0,
   },
-})
+});

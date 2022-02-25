@@ -16,7 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import ShowModal from "./ShowModal";
 import CommonAPIs from "./../../../../../controller/APIs/CommonAPIs";
-import Loading from "./../../../../components/Loading";
+import Loading from "./../../../../Components/Loading";
 
 const listReviews = [
   'Tư vẫn & Quy trình làm việc',
@@ -25,6 +25,7 @@ const listReviews = [
   'Thời gian sửa chữa',
   'Không gia và cơ sở vật chất',
 ];
+
 const Evaluate = ({dataGarage}) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,7 +33,6 @@ const Evaluate = ({dataGarage}) => {
   const [listReviews,setListReviews] = useState([]);
   const [dataModal,setDataModal] = useState([]);
   useEffect(() => {
-    
     CommonAPIs.getGarageReviews(dataGarage?.id).then((res)=>
       {
         setListReviews(res)
@@ -48,7 +48,6 @@ const Evaluate = ({dataGarage}) => {
     setDataModal(value)
     setModalVisible(!modalVisible)
   }
-
   if(loading) return <Loading/>
   return (
     <>
