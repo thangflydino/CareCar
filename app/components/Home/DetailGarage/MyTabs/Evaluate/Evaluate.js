@@ -29,6 +29,8 @@ const listReviews = [
 const Evaluate = ({dataGarage}) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleArrange, setModalVisibleArrange] = useState(false);
+  const [typeArrange, setTypeArrange] = useState('Bình Luận');
   const [loading,setLoading] = useState(true)
   const [listReviews,setListReviews] = useState([]);
   const [dataModal,setDataModal] = useState([]);
@@ -77,9 +79,11 @@ const Evaluate = ({dataGarage}) => {
             onPress={() => navigation.navigate('WriteReview')}>
             <Text style={styles.textBtnComment}>Viết đánh giá</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnSort}>
+          <TouchableOpacity style={styles.btnSort}
+            onPress={() =>setModalVisibleArrange(true)}
+          >
             <Icon name="funnel" size={20} color="gray" />
-            <Text style={styles.textBtnSort}>Mới nhất</Text>
+            <Text style={styles.textBtnSort}>{typeArrange}</Text>
             <Icon name="chevron-down-outline" size={24} color="gray" />
           </TouchableOpacity>
         </View>
@@ -131,8 +135,60 @@ const Evaluate = ({dataGarage}) => {
           ))}
         </View>}
       </ScrollView>
-      {/* Modal */}
+      {/* Modal ratting */}
       <ShowModal modalVisible={modalVisible} setModalVisible={setModalVisible} dataModal={dataModal}/>
+      {/* Modal sắp xếp */}
+      <Modal
+        transparent={true}
+        visible={modalVisibleArrange}
+        onBackdropPress={() => setModalVisibleArrange(false)}
+        style={{margin: 0}}>
+        <Pressable style={{
+          backgroundColor:'black',flex: 1,opacity:0.5
+        }}
+        onPress={() => setModalVisibleArrange(false)}
+        />
+        <View style={styles.choiceImage}>
+          <Text style={styles.textTitleChoiceImage}>Sắp xếp</Text>
+          <TouchableOpacity
+            style={styles.itemChoice}
+            onPress={() => {
+              setTypeArrange('Mới nhất')
+              setModalVisibleArrange(false)
+            }}>
+            <Text style={styles.textItemChoice}>Mới nhất</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.itemChoice}
+            onPress={() => {
+              setTypeArrange('Bình luận')
+              setModalVisibleArrange(false)
+            }}>
+            <Text style={styles.textItemChoice}>Bình luận</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.itemChoice}
+            onPress={() => {
+              setTypeArrange('Đánh giá cao')
+              setModalVisibleArrange(false)
+            }}>
+            <Text style={styles.textItemChoice}>Đánh giá cao</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.itemChoice}
+            onPress={() => {
+              setTypeArrange('Đánh giá thấp')
+              setModalVisibleArrange(false)
+            }}>
+            <Text style={styles.textItemChoice}>Đánh giá thấp</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.itemChoice, styles.itemExit]}
+            onPress={() => setModalVisibleArrange(false)}>
+            <Text style={styles.textItemChoice}>Huỷ</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </>
   );
 };
@@ -172,7 +228,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   btnComment: {
-    padding: 10,
+    padding: 16,
     marginHorizontal: 10,
     paddingVertical: 6,
     backgroundColor: 'red',
@@ -236,36 +292,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginRight: 4,
   },
+  // modal sắp xếp
+  choiceImage: {
+    backgroundColor: 'white',
+    justifyContent: 'flex-end',
+  },
+  textTitleChoiceImage: {
+    fontSize: 16,
+    color: 'gray',
+    padding: 14,
+    textAlign: 'center',
+  },
+  itemChoice: {
+    padding: 14,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e5e5',
+  },
+  textItemChoice: {
+    color: '#4ca3ff',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  itemExit: {
+    borderTopWidth: 10,
+  },
 
-  // modal
-  // modalText: {
-  //   color: 'black',
-  // },
-  // morePostContent: {
-  //   position: 'absolute',
-  //   left: 0,
-  //   right: 0,
-  //   marginHorizontal: 20,
-  //   backgroundColor: 'white',
-  //   alignSelf: 'center',
-  //   elevation: 5,
-  //   borderRadius: 10,
-  // },
-  // titleModal: {
-  //   padding: 16,
-  //   backgroundColor: '#f9f9fb',
-  //   borderTopLeftRadius: 10,
-  //   borderTopRightRadius: 10,
-  //   borderBottomWidth: 0.4,
-  //   borderBottomColor: 'gray',
-  // },
-  // textTitleModal: {
-  //   fontSize: 18,
-  //   color: 'black',
-  //   textAlign: 'center',
-  // },
-  // contentModal: {
-  //   padding: 16,
-  //   marginBottom: 10,
-  // },
 });
